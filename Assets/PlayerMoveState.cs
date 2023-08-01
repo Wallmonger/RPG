@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Inheritance from PlayerState to get the function Enter, Exit, Update/
+// Represent the moving state of the character.
+
 public class PlayerMoveState : PlayerState
 {
     public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
@@ -21,5 +24,9 @@ public class PlayerMoveState : PlayerState
     public override void Update()
     {
         base.Update();
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            stateMachine.ChangeState(player.idleState);
+        }
     }
 }

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // StateMachine variable stores the PlayerStateMachine, making awailable the functions Initialize and Update to change our states.
+
     public PlayerStateMachine StateMachine { get; private set; }
 
+
+    // My states, which extends PlayerState
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
 

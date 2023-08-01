@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Represent a single state of the player
+
 public class PlayerState 
 {
     protected PlayerStateMachine stateMachine;
