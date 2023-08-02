@@ -31,6 +31,8 @@ public class PlayerState
     public virtual void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");
+        // We set the blend tree animator of jump to change the animation according to the value of y axis ( if y > 0 then jump anim, if not, falling anim)
+        player.anim.SetFloat("yVelocity", rb.velocity.y);
     }
 
     public virtual void Exit()

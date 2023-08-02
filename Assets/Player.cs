@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 
     [Header("Move info")]
     public float moveSpeed = 12f;
+    public float jumpForce;
 
     #region Components
     public Animator anim { get; private set; }
@@ -22,16 +23,21 @@ public class Player : MonoBehaviour
     // My states, which extends PlayerState
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
+    public PlayerJumpState jumpState { get; private set; }
+    public PlayerAirState airState { get; private set; }    
 
 
     #endregion
 
     private void Awake()
     {
+        // Before the first frame, initialization of playerStateMachine, and all the states
         StateMachine = new PlayerStateMachine();
 
         idleState = new PlayerIdleState(this, StateMachine, "Idle");
         moveState = new PlayerMoveState(this, StateMachine, "Move");
+        jumpState = new PlayerJumpState(this, StateMachine, "Jump");
+        airState = new PlayerAirState(this, StateMachine, "Jump");
     }
 
 
