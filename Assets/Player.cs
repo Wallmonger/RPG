@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    [Header("Move info")]
+    public float moveSpeed = 12f;
+
     #region Components
     public Animator anim { get; private set; }
-
+    public Rigidbody2D rb { get; private set; }
 
     #endregion
-
     #region States
     // StateMachine variable stores the PlayerStateMachine, making awailable the functions Initialize and Update to change our states.
     // The state machine, who will use the Player's State to change actions
@@ -35,6 +38,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody2D>();
 
         // Using the initialize function to enter the playerStateMachine
         StateMachine.Initialize(idleState);
@@ -43,5 +47,10 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.currentState.Update();
+    }
+
+    public void SetVelocity (float _xVelocity, float _yVelocity)
+    {
+        rb.velocity = new Vector2(_xVelocity, _yVelocity);
     }
 }
