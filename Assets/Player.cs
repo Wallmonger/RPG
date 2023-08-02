@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // StateMachine variable stores the PlayerStateMachine, making awailable the functions Initialize and Update to change our states.
-
+    
+    // The state machine, who will use the Player's State to change actions
     public PlayerStateMachine StateMachine { get; private set; }
 
 
