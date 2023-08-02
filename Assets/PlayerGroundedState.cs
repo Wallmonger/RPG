@@ -22,7 +22,8 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // IsGroundDetected is the function who returns a boolean based on raycast to the floor
+        if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
     }
 
