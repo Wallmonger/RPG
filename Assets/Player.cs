@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Components
     public Animator anim { get; private set; }
 
 
+    #endregion
+
+    #region States
     // StateMachine variable stores the PlayerStateMachine, making awailable the functions Initialize and Update to change our states.
     // The state machine, who will use the Player's State to change actions
     public PlayerStateMachine StateMachine { get; private set; }
@@ -15,6 +19,9 @@ public class Player : MonoBehaviour
     // My states, which extends PlayerState
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
+
+
+    #endregion
 
     private void Awake()
     {
