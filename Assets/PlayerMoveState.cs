@@ -5,7 +5,8 @@ using UnityEngine;
 // Inheritance from PlayerState to get the function Enter, Exit, Update/
 // Represent the moving state of the character.
 
-public class PlayerMoveState : PlayerState
+// PlayerMoveState inherit from the super state PlayerGroundedState
+public class PlayerMoveState : PlayerGroundedState
 {
     public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
