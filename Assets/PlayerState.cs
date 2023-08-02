@@ -20,7 +20,8 @@ public class PlayerState
 
     public virtual void Enter()
     {
-        Debug.Log("i enter " + animBoolName);
+        // We set the animation of the animBoolName, from the playerMoveState, playerIdleState etc ..
+        player.anim.SetBool(animBoolName, true);
     }
 
     public virtual void Update()
@@ -30,7 +31,7 @@ public class PlayerState
 
     public virtual void Exit()
     {
-        Debug.Log("I exit " + animBoolName);
+        player.anim.SetBool(animBoolName, false);
     }
 
 }
