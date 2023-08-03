@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
 
+    public int facingDir { get; private set; } = 1;
+    private bool facingRight = true;
+
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
@@ -65,6 +68,7 @@ public class Player : MonoBehaviour
     public void SetVelocity (float _xVelocity, float _yVelocity)
     {
         rb.velocity = new Vector2(_xVelocity, _yVelocity);
+        FlipController(_xVelocity);
     }
 
     // If a function is of type return, we can use arrow 
@@ -78,5 +82,23 @@ public class Player : MonoBehaviour
         // we substract on y axis the groundCheckDistance to make the second point far from the first one. the more groundCheckDistance, the further it will go down
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+    }
+
+    public void Flip ()
+    {
+        facingDir = facingDir * -1;
+        facingRight = !facingRight;
+        transform.Rotate(0, 180, 0);
+    }
+
+    public void FlipController (float _x)
+    {
+        if (_x > 0 && !facingRight)
+        {
+            Flip();
+        } else if (_x < 0 && facingRight)
+        {
+            Flip();
+        }
     }
 }
