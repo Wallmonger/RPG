@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+    #region Player info
     [Header("Move info")]
     public float moveSpeed = 12f;
     public float jumpForce;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     public int facingDir { get; private set; } = 1;
     private bool facingRight = true;
-
+    #endregion
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }    
     public PlayerDashState dashState { get; private set; }
+    public PlayerWallSlideState wallSlide { get; private set; }
 
 
     #endregion
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
         jumpState = new PlayerJumpState(this, StateMachine, "Jump");
         airState = new PlayerAirState(this, StateMachine, "Jump");
         dashState = new PlayerDashState(this, StateMachine, "Dash");
+        wallSlide = new PlayerWallSlideState(this, StateMachine, "WallSlide");
     }
 
 
@@ -67,12 +69,14 @@ public class Player : MonoBehaviour
 
         // Using the initialize function to enter the playerStateMachine
         StateMachine.Initialize(idleState);
+
     }
 
     private void Update()
     {
         StateMachine.currentState.Update();
         CheckForDashInput();
+        Debug.Log(IsWallDetected());
     }
 
     private void CheckForDashInput ()
@@ -105,6 +109,9 @@ public class Player : MonoBehaviour
     // If a function is of type return, we can use arrow 
     // Raycast takes the object position, direction of the second point, distance between two points, and the layer
     public bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
+
+    // We multiply Vector2.right by facingDir to always detect walls in front of the character
+    public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
 
 
     // DrawLine takes two parameter to draw a line

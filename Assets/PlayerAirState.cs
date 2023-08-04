@@ -24,6 +24,10 @@ public class PlayerAirState : PlayerState
         
         if (player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);
+
+        // If the player is in the air, and moves, we slow down velocity to make it more controllable
+        if (xInput != 0)
+            player.SetVelocity(player.moveSpeed * .8f * xInput, rb.velocity.y);
         
     }
 
