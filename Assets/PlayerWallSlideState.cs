@@ -21,5 +21,21 @@ public class PlayerWallSlideState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        // If user press down, the velocity is normal, else, it will slide on the wall
+        if (yInput < 0)
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        else
+            rb.velocity = new Vector2(0, rb.velocity.y * .7f);
+        
+
+        // If character moves at the opposite of the wall
+        if (xInput != 0 && player.facingDir != xInput)
+            stateMachine.ChangeState(player.idleState);
+
+        if (player.IsGroundDetected())
+            stateMachine.ChangeState(player.idleState);
+
+        
     }
 }

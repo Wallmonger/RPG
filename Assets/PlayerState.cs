@@ -12,6 +12,7 @@ public class PlayerState
     protected Rigidbody2D rb;
 
     protected float xInput;
+    protected float yInput;
     private string animBoolName;
 
     protected float stateTimer;
@@ -35,6 +36,7 @@ public class PlayerState
         // StateTimer will be set on entering dashState
         stateTimer -= Time.deltaTime;
         xInput = Input.GetAxisRaw("Horizontal");
+        yInput = Input.GetAxisRaw("Vertical");
         // We set the blend tree animator of jump to change the animation according to the value of y axis ( if y > 0 then jump anim, if not, falling anim)
         player.anim.SetFloat("yVelocity", rb.velocity.y);
     }

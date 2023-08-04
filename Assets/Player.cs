@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
     {
         StateMachine.currentState.Update();
         CheckForDashInput();
-        Debug.Log(IsWallDetected());
     }
 
     private void CheckForDashInput ()
