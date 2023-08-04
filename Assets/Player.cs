@@ -8,8 +8,11 @@ public class Player : MonoBehaviour
     [Header("Move info")]
     public float moveSpeed = 12f;
     public float jumpForce;
+
+    [Header("Dash info")]
     public float dashSpeed;
     public float dashDuration;
+    public float dashDir { get; private set; }
 
     [Header("Collision info")]
     [SerializeField] private Transform groundCheck;
@@ -67,6 +70,25 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.currentState.Update();
+        CheckForDashInput();
+    }
+
+    private void CheckForDashInput ()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            dashDir = Input.GetAxisRaw("Horizontal");
+
+            // If we don't have a direction for the dash, we assign the facing direction instead of the input
+            if (dashDir == 0)
+                dashDir = facingDir;
+            
+
+            // if (dahsDir != 0) would be a solution if we don't want a dash performed after pressing LS and no direction.
+            StateMachine.ChangeState(dashState);
+        }
+
+        
     }
 
     public void SetVelocity (float _xVelocity, float _yVelocity)

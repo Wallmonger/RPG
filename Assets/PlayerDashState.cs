@@ -27,7 +27,7 @@ public class PlayerDashState : PlayerState
         base.Update();
         
         // Facing Dir is 1 or -1
-        player.SetVelocity(player.dashSpeed * player.facingDir, rb.velocity.y);
+        player.SetVelocity(player.dashSpeed * player.dashDir, 0);
 
         if (stateTimer < 0)
         {

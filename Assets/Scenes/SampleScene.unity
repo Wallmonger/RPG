@@ -346,6 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   jumpForce: 12
+  dashSpeed: 25
+  dashDuration: 0.2
   groundCheck: {fileID: 2073419474}
   groundCheckDistance: 0.5
   wallCheck: {fileID: 2055799068}
