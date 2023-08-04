@@ -29,6 +29,7 @@ public class PlayerDashState : PlayerState
         // Facing Dir is 1 or -1
         player.SetVelocity(player.dashSpeed * player.dashDir, 0);
 
+        // As stateTimer = dashDuration, when it will hit 0, we change state to Idle
         if (stateTimer < 0)
         {
             stateMachine.ChangeState(player.idleState);

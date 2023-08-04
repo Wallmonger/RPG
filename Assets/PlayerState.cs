@@ -32,6 +32,7 @@ public class PlayerState
 
     public virtual void Update()
     {
+        // StateTimer will be set on entering dashState
         stateTimer -= Time.deltaTime;
         xInput = Input.GetAxisRaw("Horizontal");
         // We set the blend tree animator of jump to change the animation according to the value of y axis ( if y > 0 then jump anim, if not, falling anim)
