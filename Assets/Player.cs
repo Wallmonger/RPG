@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    
+
     #region Player info
     [Header("Move info")]
     public float moveSpeed = 12f;
@@ -82,6 +84,8 @@ public class Player : MonoBehaviour
 
     private void CheckForDashInput ()
     {
+        if (IsWallDetected())
+            return;
         dashUsageTimer -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashUsageTimer < 0)
