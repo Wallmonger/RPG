@@ -22,6 +22,15 @@ public class PlayerWallSlideState : PlayerState
     {
         base.Update();
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            stateMachine.ChangeState(player.wallJump);
+            return;
+        }
+            
+
+        
+
         // If user press down, the velocity is normal, else, it will slide on the wall
         if (yInput < 0)
             rb.velocity = new Vector2(0, rb.velocity.y);

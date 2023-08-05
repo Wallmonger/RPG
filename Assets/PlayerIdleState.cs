@@ -16,6 +16,8 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        // Prevent the player from sliding entering the state
+        rb.velocity = new Vector2(0, 0);
     }
 
     public override void Exit()
@@ -32,9 +34,6 @@ public class PlayerIdleState : PlayerGroundedState
 
         if (xInput != 0)
             stateMachine.ChangeState(player.moveState);
-        /*else
-        {
-            player.SetVelocity(0, rb.velocity.y);
-        }*/
+        
     }
 }
