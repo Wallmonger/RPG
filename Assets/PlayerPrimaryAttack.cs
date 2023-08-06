@@ -22,6 +22,8 @@ public class PlayerPrimaryAttack : PlayerState
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
             comboCounter = 0;
 
+        player.anim.SetInteger("ComboCounter", comboCounter);
+
         Debug.Log(comboCounter);
     }
 
