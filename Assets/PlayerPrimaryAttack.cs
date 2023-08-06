@@ -21,5 +21,9 @@ public class PlayerPrimaryAttack : PlayerState
     public override void Update()
     {
         base.Update();
+
+        // If the boolean from playerState is true, then we switch to idleState, as the attack animation has stopped
+        if (triggerCalled)
+            stateMachine.ChangeState(player.idleState);
     }
 }

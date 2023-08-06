@@ -87,6 +87,9 @@ public class Player : MonoBehaviour
         CheckForDashInput();
     }
 
+    // Will call the function to set the triggerCall boolean to true
+    public void AnimationTrigger () => StateMachine.currentState.AnimationFinishTrigger();
+
     private void CheckForDashInput ()
     {
         if (IsWallDetected())

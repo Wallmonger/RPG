@@ -16,6 +16,7 @@ public class PlayerState
     private string animBoolName;
 
     protected float stateTimer;
+    protected bool triggerCalled;
 
     public PlayerState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName)
     {
@@ -29,6 +30,7 @@ public class PlayerState
         // We set the animation of the animBoolName, from the playerMoveState, playerIdleState etc ..
         player.anim.SetBool(animBoolName, true);
         rb = player.rb;
+        triggerCalled = false;
     }
 
     public virtual void Update()
@@ -44,6 +46,12 @@ public class PlayerState
     public virtual void Exit()
     {
         player.anim.SetBool(animBoolName, false);
+    }
+
+    // this function will be triggered to change state to idle, via the animator (attack)
+    public virtual void AnimationFinishTrigger()
+    {
+        triggerCalled = true;
     }
 
 }
