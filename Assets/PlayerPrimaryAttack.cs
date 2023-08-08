@@ -24,7 +24,8 @@ public class PlayerPrimaryAttack : PlayerState
 
         player.anim.SetInteger("ComboCounter", comboCounter);
 
-        Debug.Log(comboCounter);
+        // We set stateTimer to .1f to let the character move before the attack (update func)
+        stateTimer = .1f;
     }
 
     public override void Exit()
@@ -39,8 +40,9 @@ public class PlayerPrimaryAttack : PlayerState
     public override void Update()
     {
         base.Update();
-        
-        
+
+        if (stateTimer < 0)
+            rb.velocity = new Vector2(0, 0);
 
         // If the boolean from playerState is true, then we switch to idleState, as the attack animation has stopped
         if (triggerCalled)
