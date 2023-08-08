@@ -24,6 +24,9 @@ public class PlayerPrimaryAttack : PlayerState
 
         player.anim.SetInteger("ComboCounter", comboCounter);
 
+        // set velocity of each attack
+        player.SetVelocity(player.attackMovement[comboCounter].x * player.facingDir, player.attackMovement[comboCounter].y);
+
         // We set stateTimer to .1f to let the character move before the attack (update func)
         stateTimer = .1f;
     }
@@ -31,7 +34,7 @@ public class PlayerPrimaryAttack : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.StartCoroutine("BusyFor", .1f);
+        player.StartCoroutine("BusyFor", .15f);
         comboCounter++;
         lastTimeAttacked = Time.time;
         

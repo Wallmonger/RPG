@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
 
 
     #region Player info
+
+    [Header("Attack details")]
+    // will serve to set movement speed for each attack
+    public Vector2[] attackMovement;
     public bool isBusy { get; private set; }
 
     [Header("Move info")]
