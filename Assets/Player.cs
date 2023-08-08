@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
+
 
     #region Player info
+    public bool isBusy { get; private set; }
+
     [Header("Move info")]
     public float moveSpeed = 12f;
     public float jumpForce;
@@ -85,6 +87,14 @@ public class Player : MonoBehaviour
     {
         StateMachine.currentState.Update();
         CheckForDashInput();
+    }
+
+    // Determine if the player is in an action (attack) to prevent returning to moveState in a combo
+    public IEnumerator BusyFor(float _seconds)
+    {
+        isBusy = true;
+        yield return new WaitForSeconds(_seconds);
+        isBusy = false;
     }
 
     // Will call the function to set the triggerCall boolean to true
