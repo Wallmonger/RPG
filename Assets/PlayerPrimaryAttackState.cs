@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPrimaryAttack : PlayerState
+public class PlayerPrimaryAttackState : PlayerState
 {
 
     private int comboCounter;
@@ -10,7 +10,7 @@ public class PlayerPrimaryAttack : PlayerState
     private float lastTimeAttacked;
     private float comboWindow = 2f;
 
-    public PlayerPrimaryAttack(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
+    public PlayerPrimaryAttackState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
 
@@ -24,8 +24,14 @@ public class PlayerPrimaryAttack : PlayerState
 
         player.anim.SetInteger("ComboCounter", comboCounter);
 
+
+        float attackDir = player.facingDir;
+
+        if (xInput != 0)
+            attackDir = xInput;
+
         // set velocity of each attack
-        player.SetVelocity(player.attackMovement[comboCounter].x * player.facingDir, player.attackMovement[comboCounter].y);
+        player.SetVelocity(player.attackMovement[comboCounter].x * attackDir, player.attackMovement[comboCounter].y);
 
         // We set stateTimer to .1f to let the character move before the attack (update func)
         stateTimer = .1f;
