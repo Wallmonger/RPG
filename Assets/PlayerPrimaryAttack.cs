@@ -23,7 +23,8 @@ public class PlayerPrimaryAttack : PlayerState
             comboCounter = 0;
 
         player.anim.SetInteger("ComboCounter", comboCounter);
-
+        // We can speed animation with the speed property
+        player.anim.speed = 3;
         // set velocity of each attack
         player.SetVelocity(player.attackMovement[comboCounter].x * player.facingDir, player.attackMovement[comboCounter].y);
 
@@ -37,6 +38,7 @@ public class PlayerPrimaryAttack : PlayerState
         player.StartCoroutine("BusyFor", .15f);
         comboCounter++;
         lastTimeAttacked = Time.time;
+        player.anim.speed = 1;
         
     }
 
