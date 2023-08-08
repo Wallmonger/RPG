@@ -126,14 +126,17 @@ public class Player : MonoBehaviour
 
         
     }
+    #region velocity
+    public void ZeroVelocity() => rb.velocity = new Vector2(0, 0);
 
     public void SetVelocity (float _xVelocity, float _yVelocity)
     {
         rb.velocity = new Vector2(_xVelocity, _yVelocity);
         FlipController(_xVelocity);
     }
+    #endregion
+    #region Collisions
 
-    // If a function is of type return, we can use arrow 
     // Raycast takes the object position, direction of the second point, distance between two points, and the layer
     public bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
 
@@ -149,6 +152,8 @@ public class Player : MonoBehaviour
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
     }
 
+    #endregion
+    #region Flip
     public void Flip ()
     {
         facingDir = facingDir * -1;
@@ -166,4 +171,5 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
+    #endregion
 }
