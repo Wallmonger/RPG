@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Rigidbody2D rb { get; private set; }
+    public Animator anim { get; private set; }
+    
+    public EnemyStateMachine stateMachine { get; private set; }
+
+    private void Awake()
     {
-        
+        stateMachine = new EnemyStateMachine();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        stateMachine.currentState.Update();
     }
+
 }
