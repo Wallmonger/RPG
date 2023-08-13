@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
 
 
@@ -24,21 +24,11 @@ public class Player : MonoBehaviour
     public float dashDuration;
     public float dashDir { get; private set; }
 
-    [Header("Collision info")]
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private float wallCheckDistance;
-    [SerializeField] private LayerMask whatIsGround;
+    
 
-    public int facingDir { get; private set; } = 1;
-    private bool facingRight = true;
+    
     #endregion
-    #region Components
-    public Animator anim { get; private set; }
-    public Rigidbody2D rb { get; private set; }
-
-    #endregion
+    
     #region States
     // StateMachine variable stores the PlayerStateMachine, making awailable the functions Initialize and Update to change our states.
     // The state machine, who will use the Player's State to change actions
@@ -60,8 +50,9 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // Before the first frame, initialization of playerStateMachine, and all the states
         StateMachine = new PlayerStateMachine();
 
@@ -77,18 +68,18 @@ public class Player : MonoBehaviour
     }
 
 
-    private void Start()
+    protected override void Start()
     {
-        anim = GetComponentInChildren<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
 
         // Using the initialize function to enter the playerStateMachine
         StateMachine.Initialize(idleState);
 
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         StateMachine.currentState.Update();
         CheckForDashInput();
     }
@@ -126,50 +117,7 @@ public class Player : MonoBehaviour
 
         
     }
-    #region velocity
-    public void ZeroVelocity() => rb.velocity = new Vector2(0, 0);
-
-    public void SetVelocity (float _xVelocity, float _yVelocity)
-    {
-        rb.velocity = new Vector2(_xVelocity, _yVelocity);
-        FlipController(_xVelocity);
-    }
-    #endregion
-    #region Collisions
-
-    // Raycast takes the object position, direction of the second point, distance between two points, and the layer
-    public bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
-
-    // We multiply Vector2.right by facingDir to always detect walls in front of the character
-    public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
-
-
-    // DrawLine takes two parameter to draw a line
-    private void OnDrawGizmos()
-    {
-        // we substract on y axis the groundCheckDistance to make the second point far from the first one. the more groundCheckDistance, the further it will go down
-        Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
-    }
-
-    #endregion
-    #region Flip
-    public void Flip ()
-    {
-        facingDir = facingDir * -1;
-        facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);
-    }
-
-    public void FlipController (float _x)
-    {
-        if (_x > 0 && !facingRight)
-        {
-            Flip();
-        } else if (_x < 0 && facingRight)
-        {
-            Flip();
-        }
-    }
-    #endregion
+    
+    
+    
 }
