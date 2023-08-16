@@ -51,7 +51,7 @@ public class PlayerPrimaryAttackState : PlayerState
         base.Update();
 
         if (stateTimer < 0)
-            player.ZeroVelocity();
+            player.SetZeroVelocity();
 
         // If the boolean from playerState is true, then we switch to idleState, as the attack animation has stopped
         if (triggerCalled)

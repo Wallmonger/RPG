@@ -24,13 +24,12 @@ public class SkeletonBattleState : EnemyState
     {
         base.Update();
 
+        // This condition will check if the enemy is in range to attack the player. Then we use return to end Update() as we don't want the enemy to move again
         if (enemy.IsPlayerDetected())
         {
             if (enemy.IsPlayerDetected().distance < enemy.attackDistance)
             {
-                Debug.Log("i attack");
-                enemy.ZeroVelocity();
-                return;
+                stateMachine.ChangeState(enemy.attackState);
             }
         }
             
