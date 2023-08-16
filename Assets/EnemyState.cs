@@ -38,5 +38,12 @@ public class EnemyState
     {
         enemyBase.anim.SetBool(animBoolName, false);
     }
+
+
+    // Will be used to trigger boolean after animation
+    public virtual void AnimationFinishTrigger()
+    {
+        triggerCalled = true;
+    }
     
 }
