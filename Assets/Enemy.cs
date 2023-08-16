@@ -12,6 +12,8 @@ public class Enemy : Entity
 
     [Header("Attack Info")]
     public float attackDistance;
+    public float attackCooldown;
+    [HideInInspector] public float lastTimeAttacked;
     
     public EnemyStateMachine stateMachine { get; private set; }
 
@@ -24,7 +26,6 @@ public class Enemy : Entity
     protected override void Update()
     {
         base.Update();
-
         stateMachine.currentState.Update();
     }
 

@@ -19,6 +19,9 @@ public class SkeletonAttackState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
+        // When we exit this state after triggerCalled, save the time of the attack to use it as a cooldown in battleState.
+        enemy.lastTimeAttacked = Time.time;
     }
 
     public override void Update()

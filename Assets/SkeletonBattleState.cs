@@ -24,11 +24,12 @@ public class SkeletonBattleState : EnemyState
     {
         base.Update();
 
-        // This condition will check if the enemy is in range to attack the player. Then we use return to end Update() as we don't want the enemy to move again
+        // If the player is in range and cooldown + lastTimeAttack < currentTime, entering attackState
         if (enemy.IsPlayerDetected())
         {
             if (enemy.IsPlayerDetected().distance < enemy.attackDistance)
             {
+                if (CanAttack())
                 stateMachine.ChangeState(enemy.attackState);
             }
         }
@@ -48,4 +49,18 @@ public class SkeletonBattleState : EnemyState
         base.Exit();
     }
 
+    private bool CanAttack()
+    {
+        // If the current time is superior to the previous attack time + cooldown, then we return true to make attack possible again
+        if(Time.time >= enemy.lastTimeAttacked + enemy.attackCooldown)
+        {
+            // Reset the timer
+            enemy.lastTimeAttacked = Time.time;
+            return true;
+        }
+        
+        Debug.Log("Attack is not available");
+        return false;
+        
+    }
 }
