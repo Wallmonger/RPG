@@ -27,11 +27,20 @@ public class SkeletonBattleState : EnemyState
         // If the player is in range and cooldown + lastTimeAttack < currentTime, entering attackState
         if (enemy.IsPlayerDetected())
         {
+            stateTimer = enemy.battleTime;
+
             if (enemy.IsPlayerDetected().distance < enemy.attackDistance)
             {
                 if (CanAttack())
                 stateMachine.ChangeState(enemy.attackState);
             }
+        }
+        else
+        {
+            // If enemy battle time has expired, or the enemy is too far away, we stop the battleState
+            //! Vector2.Distance allows to calculate the distance between 2 transform position
+            if (stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 10)
+                stateMachine.ChangeState(enemy.idleState);
         }
             
 
