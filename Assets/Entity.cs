@@ -42,7 +42,7 @@ public class Entity : MonoBehaviour
 
     public virtual void Damage()
     {
-        Debug.Log(gameObject.name + "has been hit");
+        Debug.Log(gameObject.name + " has been hit");
     }
 
 
