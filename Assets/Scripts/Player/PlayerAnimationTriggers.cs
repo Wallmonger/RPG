@@ -11,4 +11,17 @@ public class PlayerAnimationTriggers : MonoBehaviour
     {
         player.AnimationTrigger();
     }
+
+    private void AttackTrigger ()
+    {
+        // Like the gizmos created, registers all collision with object in a circle (center, radius)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
+
+        // If at least one enemy is found on the array, trigger Damage()
+        foreach (var hit in colliders)
+        {
+            if (hit.GetComponent<Enemy>() != null)
+                hit.GetComponent<Enemy>().Damage();
+        }
+    }
 }
