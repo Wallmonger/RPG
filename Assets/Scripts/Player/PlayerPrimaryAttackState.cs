@@ -19,7 +19,8 @@ public class PlayerPrimaryAttackState : PlayerState
         base.Enter();
 
         // Need xInput to 0 to fix attack on Enter() the state
-        xInput = 0;
+        // xInput = 0
+        xInput = Input.GetAxis("Horizontal");
 
         // We add combo Window to the last known attack time, to check if the player reach the limit to make a combo (if the time is 10 and we attacked at 9, 9 + 2 = 11. As our time is bigger, we can proceed to a second attack)
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)

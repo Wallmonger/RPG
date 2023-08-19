@@ -4276,6 +4276,7 @@ GameObject:
   - component: {fileID: 864920932}
   - component: {fileID: 864920934}
   - component: {fileID: 864920935}
+  - component: {fileID: 864920936}
   m_Layer: 7
   m_Name: Enemy_Skeleton
   m_TagString: Untagged
@@ -4295,6 +4296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12cc49b57a1d4b64dbd49de55872174e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackDirection: {x: 7, y: 12}
+  knockbackDuration: 0.07
   attackCheck: {fileID: 295309714}
   attackCheckRadius: 0.8
   groundCheck: {fileID: 1863424699}
@@ -4347,7 +4350,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 12
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -4379,6 +4382,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5053575}
   m_EdgeRadius: 0
+--- !u!114 &864920936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864920931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879878aa14b8d5142af2f11aba423370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashOcurrence: 5
+  flashDuration: 0.2
+  hitMat: {fileID: 2100000, guid: 4d281c3fd55d3c046877b110463f46fe, type: 2}
 --- !u!1 &972414915
 GameObject:
   m_ObjectHideFlags: 0
@@ -4475,6 +4493,7 @@ GameObject:
   - component: {fileID: 1215893095}
   - component: {fileID: 1215893098}
   - component: {fileID: 1215893097}
+  - component: {fileID: 1215893099}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -4494,6 +4513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a309cb08e6d9e064f8c9110b6df7f44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackDirection: {x: 0, y: 0}
+  knockbackDuration: 0
   attackCheck: {fileID: 2036424561}
   attackCheckRadius: 0.8
   groundCheck: {fileID: 2073419474}
@@ -4568,6 +4589,21 @@ CapsuleCollider2D:
   m_Offset: {x: -0.05430901, y: -0.2860272}
   m_Size: {x: 0.9127481, y: 2.078938}
   m_Direction: 0
+--- !u!114 &1215893099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215893094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879878aa14b8d5142af2f11aba423370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashOcurrence: 2
+  flashDuration: 0.1
+  hitMat: {fileID: 2100000, guid: 4d281c3fd55d3c046877b110463f46fe, type: 2}
 --- !u!1 &1258757973
 GameObject:
   m_ObjectHideFlags: 0
