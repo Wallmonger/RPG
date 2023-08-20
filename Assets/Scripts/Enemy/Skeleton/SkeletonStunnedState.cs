@@ -15,6 +15,9 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Enter();
 
+        // InvokeRepeating(callbackFunction; delay, repeatingRate)
+        enemy.fx.InvokeRepeating("RedColorBlink", 0, .1f);
+        
         stateTimer = enemy.stunDuration;
 
         // Stun direction will be set on public. We multiply it by -facingDir to make it go in the opposite of facingDirection
@@ -24,6 +27,9 @@ public class SkeletonStunnedState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
+        // Invoke allows to call private functions (callback, delay)
+        enemy.fx.Invoke("CancelRedBlink", 0);
     }
 
     public override void Update()
