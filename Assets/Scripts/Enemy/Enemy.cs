@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class Enemy : Entity
     [Header("Stunned info")]
     public float stunDuration;
     public Vector2 stunDirection;
+    protected bool canBeStunned;
+    [SerializeField] protected GameObject counterImage;
 
     [Header("Move Info")]
     public float moveSpeed;
@@ -32,6 +35,32 @@ public class Enemy : Entity
     {
         base.Update();
         stateMachine.currentState.Update();
+    }
+
+    public virtual void OpenCounterAttackWindow()
+    {
+        // Open the counterWindow by activating canBeStunned and make visible counterImage gameObject
+        canBeStunned = true;
+        counterImage.SetActive(true);
+    }
+
+    public virtual void CloseCounterAttackWindow()
+    {
+        canBeStunned = false;
+        counterImage.SetActive(false);
+    }
+
+
+    // When the player will counter, we will trigger this function to check if the enemy can be stunned before doing more
+    protected virtual bool CanBeStunned()
+    {
+        if (canBeStunned)
+        {
+            CloseCounterAttackWindow();
+            return true;
+        }
+
+        return false;
     }
 
     // Set TriggerCalled true on the current state (anim boolean)
