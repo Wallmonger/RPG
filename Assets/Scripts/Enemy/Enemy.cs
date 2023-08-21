@@ -39,12 +39,12 @@ public class Enemy : Entity
 
     public virtual void OpenCounterAttackWindow()
     {
-        // Open the counterWindow by activating canBeStunned and make visible counterImage gameObject
+        // Open the counterWindow by activating canBeStunned and make visible counterImage gameObject (via anim)
         canBeStunned = true;
         counterImage.SetActive(true);
     }
 
-    public virtual void CloseCounterAttackWindow()
+    public virtual void CloseCounterAttackWindow()  // via anim
     {
         canBeStunned = false;
         counterImage.SetActive(false);
@@ -52,7 +52,7 @@ public class Enemy : Entity
 
 
     // When the player will counter, we will trigger this function to check if the enemy can be stunned before doing more
-    protected virtual bool CanBeStunned()
+    public virtual bool CanBeStunned()
     {
         if (canBeStunned)
         {

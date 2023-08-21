@@ -44,6 +44,8 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Exit()
     {
         base.Exit();
+
+        // Sets timer to prevent movement on attack
         player.StartCoroutine("BusyFor", .15f);
         comboCounter++;
         lastTimeAttacked = Time.time;

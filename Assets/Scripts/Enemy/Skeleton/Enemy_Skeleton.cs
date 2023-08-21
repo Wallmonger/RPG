@@ -39,7 +39,7 @@ public class Enemy_Skeleton : Enemy
             stateMachine.ChangeState(stunnedState);
     }
 
-    protected override bool CanBeStunned()
+    public override bool CanBeStunned()
     {
         // Getting the function of enemy.cs
         // Calls the function checking if the enemy can be stunned, if true, enemy enters StunnedState
