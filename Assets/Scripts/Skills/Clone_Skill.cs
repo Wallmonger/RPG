@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Clone_Skill : Skill
 {
+    [Header("Clone info")]
     [SerializeField] private GameObject clonePrefab;
+    [SerializeField] private float cloneDuration;
+
 
     // After getting _clonePosition from DashState
     public void CreateClone(Transform _clonePosition)
@@ -13,6 +16,6 @@ public class Clone_Skill : Skill
         GameObject newClone = Instantiate(clonePrefab);
 
         // Sending the data of position to our script on the prefab
-        newClone.GetComponent<Clone_Skill_Controller>().SetupClone(_clonePosition);
+        newClone.GetComponent<Clone_Skill_Controller>().SetupClone(_clonePosition, cloneDuration);
     }
 }

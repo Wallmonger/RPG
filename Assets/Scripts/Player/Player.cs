@@ -29,7 +29,7 @@ public class Player : Entity
 
     
     #endregion
-    
+    public SkillManager skill { get; private set; }
     #region States
     // StateMachine variable stores the PlayerStateMachine, making awailable the functions Initialize and Update to change our states.
     // The state machine, who will use the Player's State to change actions
@@ -76,6 +76,10 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+
+        // Setting skill var to the skill manager instance, for short name on the states
+        skill = SkillManager.instance;
+
 
         // Using the initialize function to enter the playerStateMachine
         StateMachine.Initialize(idleState);

@@ -14,7 +14,7 @@ public class PlayerDashState : PlayerState
         base.Enter();
 
         // Sending to CloneSkill, the position value of the player, to make a clone image
-        SkillManager.instance.clone.CreateClone(player.transform);
+        player.skill.clone.CreateClone(player.transform);
 
         stateTimer = player.dashDuration;
     }
