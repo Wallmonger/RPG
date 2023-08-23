@@ -6,9 +6,13 @@ public class Clone_Skill : Skill
 {
     [SerializeField] private GameObject clonePrefab;
 
-    public void CreateClone()
+    // After getting _clonePosition from DashState
+    public void CreateClone(Transform _clonePosition)
     {
         // Creating a gameObject variable which contains our prefab (clone object)
         GameObject newClone = Instantiate(clonePrefab);
+
+        // Sending the data of position to our script on the prefab
+        newClone.GetComponent<Clone_Skill_Controller>().SetupClone(_clonePosition);
     }
 }

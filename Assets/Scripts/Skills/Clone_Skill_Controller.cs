@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Clone_Skill_Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+ 
+    // Setting the created object on the position of the player, when entering dashState
+    public void SetupClone (Transform _newTransform)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        transform.position = _newTransform.position;
     }
 }
