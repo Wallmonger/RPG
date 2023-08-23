@@ -69,7 +69,8 @@ public class SkeletonBattleState : EnemyState
             return true;
         }
         
-        Debug.Log("Attack is not available");
+        
+        //Attack is not available
         return false;
         
     }
