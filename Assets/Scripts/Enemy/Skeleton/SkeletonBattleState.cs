@@ -18,7 +18,8 @@ public class SkeletonBattleState : EnemyState
     {
         base.Enter();
 
-        player = GameObject.Find("Player").transform;
+        // instead of making player = GameObject.Find("Player").transform, we can use our static class;
+        player = PlayerManager.instance.player.transform;
     }
     public override void Update()
     {
