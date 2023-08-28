@@ -52,7 +52,7 @@ public class Sword_Skill : Skill
         // Getting access of Sword_Skill_Controller via created prefab
         Sword_Skill_Controller newSwordScript = newSword.GetComponent<Sword_Skill_Controller>();
 
-        newSwordScript.SetupSword(finalDir, swordGravity);
+        newSwordScript.SetupSword(finalDir, swordGravity, player);
 
         player.AssignNewSword(newSword);
 
