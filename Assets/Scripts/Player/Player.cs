@@ -30,6 +30,7 @@ public class Player : Entity
     
     #endregion
     public SkillManager skill { get; private set; }
+    public GameObject sword { get; private set; }
     #region States
     // StateMachine variable stores the PlayerStateMachine, making awailable the functions Initialize and Update to change our states.
     // The state machine, who will use the Player's State to change actions
@@ -96,6 +97,18 @@ public class Player : Entity
         base.Update();
         StateMachine.currentState.Update();
         CheckForDashInput();
+    }
+
+    // Assign new sword on throwing
+    public void AssignNewSword(GameObject _newSword)
+    {
+        sword = _newSword;
+    }
+
+    // Destroy skill_sword prefab
+    public void ClearTheSword()
+    {
+        Destroy(sword);
     }
 
     // Determine if the player is in an action (attack) to prevent returning to moveState in a combo

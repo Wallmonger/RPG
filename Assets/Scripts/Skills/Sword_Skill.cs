@@ -54,6 +54,7 @@ public class Sword_Skill : Skill
 
         newSwordScript.SetupSword(finalDir, swordGravity);
 
+        player.AssignNewSword(newSword);
 
         // When releasing the key, no need to see the dots anymore
         DotsActive(false);
