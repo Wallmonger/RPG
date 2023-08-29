@@ -4608,8 +4608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   swordPrefab: {fileID: 4039227982229047465, guid: 820b28424b728214eb67b97151700813, type: 3}
-  launchForce: {x: 15, y: 20}
-  swordGravity: 4
+  launchForce: {x: 35, y: 25}
+  swordGravity: 4.5
   numberOfDots: 20
   spaceBetweenDots: 0.07
   dotPrefab: {fileID: 444299712910239489, guid: de7c9ecf25d792746a614d66fc0a27e1, type: 3}
@@ -4627,7 +4627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4039227982229047465, guid: 820b28424b728214eb67b97151700813, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4039227982229047477, guid: 820b28424b728214eb67b97151700813, type: 3}
       propertyPath: m_RootOrder

@@ -106,8 +106,9 @@ public class Player : Entity
     }
 
     // Destroy skill_sword prefab
-    public void ClearTheSword()
+    public void CatchSword()
     {
+        StateMachine.ChangeState(catchSword);
         Destroy(sword);
     }
 

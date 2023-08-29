@@ -39,6 +39,8 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.isKinematic = false;
         transform.parent = null;
         isReturning = true;
+
+        
     }
 
     private void Update()
@@ -54,7 +56,7 @@ public class Sword_Skill_Controller : MonoBehaviour
 
             // If the returning sword is close enough, calling the function to clear player sword variable
             if (Vector2.Distance(transform.position, player.transform.position) < 1)
-                player.ClearTheSword();
+                player.CatchSword();
         }
     }
 
