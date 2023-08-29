@@ -14,11 +14,10 @@ public class Player : Entity
     public float counterAttackDuration = .2f;
     public bool isBusy { get; private set; }
    
-    
-
     [Header("Move info")]
     public float moveSpeed = 12f;
     public float jumpForce;
+    public float swordReturnImpact;
 
     [Header("Dash info")]
     public float dashSpeed;
@@ -112,7 +111,7 @@ public class Player : Entity
         Destroy(sword);
     }
 
-    // Determine if the player is in an action (attack) to prevent returning to moveState in a combo
+    // Will be used to prevent player from doing actions while busy
     public IEnumerator BusyFor(float _seconds)
     {
         isBusy = true;
