@@ -1,9 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
+public enum SwordType
+{
+    Regular,
+    Bounce,
+    Pierce,
+    Spin
+}
 
 public class Sword_Skill : Skill
 {
+    public SwordType swordType = SwordType.Regular;
+
+    [Header("Bounce info")]
+    [SerializeField] private int amountOfBounce;
+    [SerializeField] private float bounceGravity;
+
     [Header("Skill info")]
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce;
@@ -52,6 +65,12 @@ public class Sword_Skill : Skill
         // Getting access of Sword_Skill_Controller via created prefab
         Sword_Skill_Controller newSwordScript = newSword.GetComponent<Sword_Skill_Controller>();
 
+        if (swordType == SwordType.Bounce)
+        {
+            swordGravity = bounceGravity;
+            newSwordScript.SetupBounce(true, amountOfBounce);
+        } 
+
         newSwordScript.SetupSword(finalDir, swordGravity, player);
 
         player.AssignNewSword(newSword);
@@ -60,6 +79,8 @@ public class Sword_Skill : Skill
         DotsActive(false);
     }
 
+
+    #region Aim region
     // Will return a vector2 value of the mouse aiming
     public Vector2 AimDirection()
     {
@@ -87,9 +108,9 @@ public class Sword_Skill : Skill
     private void GenerateDots()
     {
         // Creating dots array with length equals to numberOfDots. Values will be null until we enter the for loop
-        dots = new GameObject[numberOfDots];    
+        dots = new GameObject[numberOfDots];
 
-        for (int i = 0;  i < numberOfDots; i++)
+        for (int i = 0; i < numberOfDots; i++)
         {
             // Instantiation of prefab gameObject for each numberOfdots (gameObject, position, rotation, parent who makes possible to move each one at the same time) 
             dots[i] = Instantiate(dotPrefab, player.transform.position, Quaternion.identity, dotsParent);
@@ -105,7 +126,9 @@ public class Sword_Skill : Skill
         Vector2 position = (Vector2)player.transform.position + new Vector2(
             AimDirection().normalized.x * launchForce.x,
             AimDirection().normalized.y * launchForce.y) * t + .5f * (Physics2D.gravity * swordGravity) * (t * t);
-            
+
         return position;
     }
+
+    #endregion
 }

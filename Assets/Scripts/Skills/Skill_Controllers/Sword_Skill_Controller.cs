@@ -13,12 +13,13 @@ public class Sword_Skill_Controller : MonoBehaviour
     private bool canRotate = true;
     private bool isReturning;
 
-    public float bounceSpeed;
-    public bool isBouncing = true;
-    public int amountOfBounce = 4;
+    [Header("Bounce info")]
+    [SerializeField] private float bounceSpeed;
+    private bool isBouncing;
+    private int amountOfBounce;
 
     // List is an array whose length is unknown
-    public List<Transform> enemyTarget;
+    private List<Transform> enemyTarget;
     private int targetIndex;
     
 
@@ -40,6 +41,16 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.gravityScale = _gravityScale;
 
         anim.SetBool("Rotation", true);
+    }
+
+
+    public void SetupBounce(bool _isBouncing, int _amountOfBounces)
+    {
+        isBouncing = _isBouncing;
+        amountOfBounce = _amountOfBounces;
+
+        // Initialize enemyTarget list for bounce mode
+        enemyTarget = new List<Transform>();
     }
 
     public void ReturnSword()
@@ -69,6 +80,11 @@ public class Sword_Skill_Controller : MonoBehaviour
                 player.CatchSword();
         }
 
+        BounceLogic();
+    }
+
+    private void BounceLogic()
+    {
         // If there is enemy is the list, and isBouncing is true, move the sword to the next enemy
         if (isBouncing && enemyTarget.Count > 0)
         {
