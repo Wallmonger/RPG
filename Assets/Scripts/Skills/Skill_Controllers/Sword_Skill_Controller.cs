@@ -13,10 +13,13 @@ public class Sword_Skill_Controller : MonoBehaviour
     private bool canRotate = true;
     private bool isReturning;
 
+    [Header("Pierce info")]
+    [SerializeField] private float pierceAmount;
+
     [Header("Bounce info")]
     [SerializeField] private float bounceSpeed;
     private bool isBouncing;
-    private int amountOfBounce;
+    private int bounceAmount;
 
     // List is an array whose length is unknown
     private List<Transform> enemyTarget;
@@ -40,17 +43,23 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
 
-        anim.SetBool("Rotation", true);
+        if (pierceAmount <= 0)
+            anim.SetBool("Rotation", true);
     }
 
 
     public void SetupBounce(bool _isBouncing, int _amountOfBounces)
     {
         isBouncing = _isBouncing;
-        amountOfBounce = _amountOfBounces;
+        bounceAmount = _amountOfBounces;
 
         // Initialize enemyTarget list for bounce mode
         enemyTarget = new List<Transform>();
+    }
+
+    public void SetupPierce(int _pierceAmount)
+    {
+        pierceAmount = _pierceAmount;
     }
 
     public void ReturnSword()
@@ -94,10 +103,10 @@ public class Sword_Skill_Controller : MonoBehaviour
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
                 targetIndex++;
-                amountOfBounce--;
+                bounceAmount--;
 
                 // If amountOfBounce is reached, prevent this condition and return the sword
-                if (amountOfBounce <= 0)
+                if (bounceAmount <= 0)
                 {
                     isBouncing = false;
                     isReturning = true;
@@ -115,6 +124,8 @@ public class Sword_Skill_Controller : MonoBehaviour
         if (isReturning)
             return;
 
+        // Checking if null, then activate damage
+        collision.GetComponent<Enemy>()?.Damage();
 
         if (collision.GetComponent<Enemy>() != null)
         {
@@ -136,6 +147,12 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private void StuckInto(Collider2D collision)
     {
+        // Still in rotation if in piercing mode
+        if (pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
+        {
+            pierceAmount--;
+            return;
+        }
 
         canRotate = false;
         cd.enabled = false;
