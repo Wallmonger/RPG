@@ -29,8 +29,11 @@ public class Sword_Skill_Controller : MonoBehaviour
     private float maxTravelDistance;
     private float spinDuration;
     private float spinTimer;
-    private bool isSpinning;
     private bool wasStopped;
+    private bool isSpinning;
+
+    private float hitTimer;
+    private float hitCooldown;
     
 
 
@@ -69,11 +72,12 @@ public class Sword_Skill_Controller : MonoBehaviour
         pierceAmount = _pierceAmount;
     }
 
-    public void SetupSpin(bool _isSpinning, float _maxTravelDistance, float _spinDuration)
+    public void SetupSpin(bool _isSpinning, float _maxTravelDistance, float _spinDuration, float _hitCooldown)
     {
         isSpinning = _isSpinning;
         maxTravelDistance = _maxTravelDistance;
         spinDuration = _spinDuration;
+        hitCooldown = _hitCooldown;
     }
 
     public void ReturnSword()
@@ -110,9 +114,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             // If sword reach max distance, and wasn't stopped, freeze its position
             if (Vector2.Distance(player.transform.position, transform.position) > maxTravelDistance && !wasStopped)
             {
-                wasStopped = true;
-                rb.constraints = RigidbodyConstraints2D.FreezePosition;
-                spinTimer = spinDuration;
+                StopWhenSpinning();
             }
 
             if (wasStopped)
@@ -125,8 +127,33 @@ public class Sword_Skill_Controller : MonoBehaviour
                     isSpinning = false;
                     isReturning = true;
                 }
+
+                hitTimer -= Time.deltaTime;
+
+
+                // Damage enemy over time 
+                if (hitTimer < 0)
+                {
+                    hitTimer = hitCooldown;
+
+                    Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1);
+
+                    foreach (var hit in colliders)
+                    {
+                        if (hit.GetComponent<Enemy>() != null)
+                            hit.GetComponent<Enemy>().Damage();
+                    }
+                }
+
             }
         }
+    }
+
+    private void StopWhenSpinning()
+    {
+        wasStopped = true;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        spinTimer = spinDuration;
     }
 
     private void BounceLogic()
@@ -139,6 +166,8 @@ public class Sword_Skill_Controller : MonoBehaviour
             // If sword hit an enemy, increment
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
+                enemyTarget[targetIndex].GetComponent<Enemy>().Damage();
+
                 targetIndex++;
                 bounceAmount--;
 
@@ -188,6 +217,14 @@ public class Sword_Skill_Controller : MonoBehaviour
         if (pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
         {
             pierceAmount--;
+            return;
+        }
+
+        // If the object is in spinning mode, do not stop the animations or change its parent
+        // StopWhenSpinning() will stop the sword on the first encounter with an enemy
+        if (isSpinning)
+        {
+            StopWhenSpinning();
             return;
         }
 
