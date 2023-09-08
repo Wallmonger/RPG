@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Sword_Skill_Controller : MonoBehaviour
 {
@@ -34,7 +35,8 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private float hitTimer;
     private float hitCooldown;
-    
+
+    private float spinDirection;
 
 
     private void Awake()
@@ -55,6 +57,9 @@ public class Sword_Skill_Controller : MonoBehaviour
 
         if (pierceAmount <= 0)
             anim.SetBool("Rotation", true);
+
+        // Clamp limits the value between -1 and 1. If exceeded, will automaticly set the value of the closest one
+        spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
     }
 
 
@@ -108,7 +113,11 @@ public class Sword_Skill_Controller : MonoBehaviour
         }
 
         BounceLogic();
+        SpinLogic();
+    }
 
+    private void SpinLogic()
+    {
         if (isSpinning)
         {
             // If sword reach max distance, and wasn't stopped, freeze its position
@@ -119,8 +128,11 @@ public class Sword_Skill_Controller : MonoBehaviour
 
             if (wasStopped)
             {
-                spinTimer -= Time.deltaTime;    
+                spinTimer -= Time.deltaTime;
 
+                // move the sword forward on launch
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + spinDirection, transform.position.y), 1.5f * Time.deltaTime);
+                
                 // if timer goes to 0, return the sword
                 if (spinTimer < 0)
                 {
@@ -192,7 +204,13 @@ public class Sword_Skill_Controller : MonoBehaviour
 
         // Checking if null, then activate damage
         collision.GetComponent<Enemy>()?.Damage();
+        SetupTargetForBounce(collision);
 
+        StuckInto(collision);
+    }
+
+    private void SetupTargetForBounce(Collider2D collision)
+    {
         if (collision.GetComponent<Enemy>() != null)
         {
             // method Count returns number of elements in a List
@@ -207,8 +225,6 @@ public class Sword_Skill_Controller : MonoBehaviour
                 }
             }
         }
-
-        StuckInto(collision);
     }
 
     private void StuckInto(Collider2D collision)
