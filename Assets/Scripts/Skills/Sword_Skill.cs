@@ -32,6 +32,7 @@ public class Sword_Skill : Skill
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce;
     [SerializeField] private float swordGravity;
+    [SerializeField] private float freezeTimeDuration;
 
     // will be used to calculate the ending direction of the sword, based on gravity
     private Vector2 finalDir;
@@ -96,7 +97,7 @@ public class Sword_Skill : Skill
             newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
         
 
-        newSwordScript.SetupSword(finalDir, swordGravity, player);
+        newSwordScript.SetupSword(finalDir, swordGravity, player, freezeTimeDuration);
 
         player.AssignNewSword(newSword);
 
