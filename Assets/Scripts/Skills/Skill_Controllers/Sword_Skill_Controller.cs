@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class Sword_Skill_Controller : MonoBehaviour
 {
-    [SerializeField] private float returnSpeed = 12;
     private Animator anim;
     private Rigidbody2D rb;
     private CircleCollider2D cd;
@@ -14,13 +13,14 @@ public class Sword_Skill_Controller : MonoBehaviour
     private bool canRotate = true;
     private bool isReturning;
 
-    public float freezeTimeDuration;
+    private float freezeTimeDuration;
+    private float returnSpeed = 12;
 
     [Header("Pierce info")]
     private float pierceAmount;
 
     [Header("Bounce info")]
-    [SerializeField] private float bounceSpeed;
+    private float bounceSpeed;
     private bool isBouncing;
     private int bounceAmount;
 
@@ -49,11 +49,16 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     }
 
+    private void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
 
-    public void SetupSword(Vector2 _dir, float _gravityScale, Player _player, float _freezeTimeDuration)
+    public void SetupSword(Vector2 _dir, float _gravityScale, Player _player, float _freezeTimeDuration, float _returnSpeed)
     {
         player = _player;
         freezeTimeDuration = _freezeTimeDuration;
+        returnSpeed = _returnSpeed;
 
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
@@ -63,13 +68,16 @@ public class Sword_Skill_Controller : MonoBehaviour
 
         // Clamp limits the value between -1 and 1. If exceeded, will automaticly set the value of the closest one
         spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
+
+        Invoke("DestroyMe", 7);
     }
 
 
-    public void SetupBounce(bool _isBouncing, int _amountOfBounces)
+    public void SetupBounce(bool _isBouncing, int _amountOfBounces, float _bounceSpeed)
     {
         isBouncing = _isBouncing;
         bounceAmount = _amountOfBounces;
+        bounceSpeed = _bounceSpeed;
 
         // Initialize enemyTarget list for bounce mode
         enemyTarget = new List<Transform>();
