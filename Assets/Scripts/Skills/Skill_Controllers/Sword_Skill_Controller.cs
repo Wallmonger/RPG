@@ -136,8 +136,8 @@ public class Sword_Skill_Controller : MonoBehaviour
                 // if timer goes to 0, return the sword
                 if (spinTimer < 0)
                 {
-                    isSpinning = false;
                     isReturning = true;
+                    isSpinning = false;
                 }
 
                 hitTimer -= Time.deltaTime;
@@ -202,8 +202,16 @@ public class Sword_Skill_Controller : MonoBehaviour
         if (isReturning)
             return;
 
+        if (collision.GetComponent<Enemy>() != null)
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+
+            enemy.Damage();
+            enemy.StartCoroutine("FreezeTimeFor", 5f);
+        }
+
         // Checking if null, then activate damage
-        collision.GetComponent<Enemy>()?.Damage();
+        // collision.GetComponent<Enemy>()?.Damage();
         SetupTargetForBounce(collision);
 
         StuckInto(collision);
