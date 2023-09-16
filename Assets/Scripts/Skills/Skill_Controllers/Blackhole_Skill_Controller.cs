@@ -10,7 +10,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     public float maxSize;
     public float growSpeed;
     public bool canGrow;
-    public List<Transform> targets;
+    public List<Transform> targets = new List<Transform>();
 
     private void Update()
     {
@@ -28,18 +28,33 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         if (collision.GetComponent<Enemy>() != null)
         {
             collision.GetComponent<Enemy>().FreezeTime(true);
-            
-            // Instantiate key on top of the enemy without rotation
-            GameObject newHotKey = Instantiate(hotKeyPrefab, collision.transform.position + new Vector3(0,2), Quaternion.identity);
 
-            // Random key created on each collision then remove from the list
-            KeyCode choosenKey = keyCodeList[Random.Range(0, keyCodeList.Count)];
-            keyCodeList.Remove(choosenKey);
+            CreateHotKey(collision);
 
-            Blackhole_HotKey_Controller newHotKeyScript = newHotKey.GetComponent<Blackhole_HotKey_Controller>();
-
-            newHotKeyScript.SetupHotKey(choosenKey);
-          
         }
     }
+
+    private void CreateHotKey(Collider2D collision)
+    {
+        // If there is no more hotKey
+        if (keyCodeList.Count <= 0)
+        {
+            Debug.LogWarning("No enough keys in the keycodelist");
+            return;
+        }
+
+        // Instantiate key on top of the enemy without rotation
+        GameObject newHotKey = Instantiate(hotKeyPrefab, collision.transform.position + new Vector3(0, 2), Quaternion.identity);
+
+        // Random key created on each collision then remove from the list
+        KeyCode choosenKey = keyCodeList[Random.Range(0, keyCodeList.Count)];
+        keyCodeList.Remove(choosenKey);
+
+        Blackhole_HotKey_Controller newHotKeyScript = newHotKey.GetComponent<Blackhole_HotKey_Controller>();
+
+        newHotKeyScript.SetupHotKey(choosenKey, collision.transform, this);
+    }
+
+    // Add enemy as a target on key up
+    public void AddEnemyToList(Transform _enemyTransform) => targets.Add(_enemyTransform);
 }
