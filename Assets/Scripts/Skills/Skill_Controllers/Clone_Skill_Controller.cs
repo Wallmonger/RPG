@@ -36,7 +36,7 @@ public class Clone_Skill_Controller : MonoBehaviour
     }
 
     // Setting the created object on the position of the player, when entering dashState
-    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack)
+    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset)
     {
         // If the player has unlocked the skill, attack animation will play on the clone, at random from 1 to 3
         if (_canAttack )
@@ -45,7 +45,7 @@ public class Clone_Skill_Controller : MonoBehaviour
 
 
         cloneTimer = _cloneDuration;
-        transform.position = _newTransform.position;
+        transform.position = _newTransform.position + _offset;
 
 
         FaceClosestTarget();
