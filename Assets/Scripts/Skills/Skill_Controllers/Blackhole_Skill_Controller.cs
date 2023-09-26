@@ -7,22 +7,31 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     [SerializeField] private GameObject hotKeyPrefab;
     [SerializeField] private List<KeyCode> keyCodeList;
 
-    public float maxSize;
-    public float growSpeed;
-    public float shrinkSpeed;
-    public bool canGrow;
-    public bool canShrink;
+    private float maxSize;
+    private float growSpeed;
+    private float shrinkSpeed;
 
+    private bool canGrow = true;
+    private bool canShrink;
     private bool canCreateHotKeys = true;
-
     private bool cloneAttackReleased;
-    public int amountOfAttacks = 4;
-    public float cloneAttackCooldown = .3f;
+
+    private int amountOfAttacks = 4;
+    private float cloneAttackCooldown = .3f;
     private float cloneAttackTimer;
 
     private List<Transform> targets = new List<Transform>();
     private List<GameObject> createdHotKey = new List<GameObject>();
     
+
+    public void SetupBlackHole(float _maxSize, float _growSpeed, float _shrinkSpeed, int _amountOfAttacks, float _cloneAttackCooldown)
+    {
+        maxSize = _maxSize;
+        growSpeed = _growSpeed;
+        shrinkSpeed = _shrinkSpeed;
+        amountOfAttacks = _amountOfAttacks;
+        cloneAttackCooldown = _cloneAttackCooldown;
+    }
 
     private void Update()
     {
@@ -30,35 +39,12 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            DestroyHotKeys();
-            cloneAttackReleased = true;
-            canCreateHotKeys = false;
+            // Trigger the clone attack on the list of enemy made by QTE
+            //TODO: Need condition if <List>Target is empty
+            ReleaseCloneAttack();
         }
 
-        // attacks random enemy of the targets list
-        if (cloneAttackTimer < 0 && cloneAttackReleased)
-        {
-            cloneAttackTimer = cloneAttackCooldown;
-            
-            int randomIndex = Random.Range(0, targets.Count);
-
-            // Randomize offset for creating distance between player & enemy
-            float xOffset;
-
-            if (Random.Range(0, 100) > 50)
-                xOffset = 2;
-            else
-                xOffset = -2;
-
-            SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3 (xOffset, 0));
-            amountOfAttacks--;
-
-            if (amountOfAttacks <= 0)
-            {
-                canShrink = true;
-                cloneAttackReleased = false;
-            }
-        }
+        CloneAttackLogic();
 
         if (canGrow && !canShrink)
         {
@@ -74,6 +60,42 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
             if (transform.localScale.x < 0)
                 Destroy(gameObject);
+        }
+    }
+
+    private void ReleaseCloneAttack()
+    {
+        DestroyHotKeys();
+        cloneAttackReleased = true;
+        canCreateHotKeys = false;
+    }
+
+    private void CloneAttackLogic()
+    {
+        // attacks random enemy of the targets list
+        if (cloneAttackTimer < 0 && cloneAttackReleased)
+        {
+            cloneAttackTimer = cloneAttackCooldown;
+
+            int randomIndex = Random.Range(0, targets.Count);
+
+            // Randomize offset for creating distance between player & enemy
+            float xOffset;
+
+            if (Random.Range(0, 100) > 50)
+                xOffset = 2;
+            else
+                xOffset = -2;
+
+            // Create a clone at a random enemy position in the list, with an offset
+            SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0));
+            amountOfAttacks--;
+
+            if (amountOfAttacks <= 0)
+            {
+                canShrink = true;
+                cloneAttackReleased = false;
+            }
         }
     }
 
@@ -98,6 +120,12 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             CreateHotKey(collision);
 
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Enemy>() != null)
+            collision.GetComponent<Enemy>().FreezeTime(false); 
     }
 
     private void CreateHotKey(Collider2D collision)

@@ -6237,7 +6237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  swordType: 2
+  swordType: 0
   bounceAmount: 4
   bounceGravity: 5
   bounceSpeed: 20
@@ -10945,9 +10945,12 @@ MonoBehaviour:
   hotKeyPrefab: {fileID: 867297322}
   keyCodeList: 7100000077000000650000006600000074000000
   maxSize: 15
-  growSpeed: 3
+  growSpeed: 1
+  shrinkSpeed: 3
   canGrow: 0
-  targets: []
+  canShrink: 0
+  amountOfAttacks: 4
+  cloneAttackCooldown: 0.3
 --- !u!212 &1661629493
 SpriteRenderer:
   m_ObjectHideFlags: 0
