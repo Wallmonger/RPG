@@ -114,6 +114,11 @@ public class Player : Entity
         Destroy(sword);
     }
 
+    public void ExitBlackHoleAbility()
+    {
+        StateMachine.ChangeState(airState);
+    }
+
     // Will be used to prevent player from doing actions while busy
     public IEnumerator BusyFor(float _seconds)
     {

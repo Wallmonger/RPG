@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBlackholeState : PlayerState
@@ -7,6 +8,7 @@ public class PlayerBlackholeState : PlayerState
     private float flyTime = .4f;
     private bool skillUsed;
 
+    private float defaultGravity;
 
     public PlayerBlackholeState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
@@ -21,6 +23,8 @@ public class PlayerBlackholeState : PlayerState
     {
         base.Enter();
 
+        // Setting gravity variable for retrieving original gravity on exit()
+        defaultGravity = player.rb.gravityScale;
         skillUsed = false;
         stateTimer = flyTime;
         rb.gravityScale = 0;
@@ -29,6 +33,9 @@ public class PlayerBlackholeState : PlayerState
     public override void Exit()
     {
         base.Exit();
+
+        player.rb.gravityScale = defaultGravity;
+        player.MakeTransparent(false);
     }
 
     public override void Update()
@@ -50,5 +57,8 @@ public class PlayerBlackholeState : PlayerState
             }
 
         }
+        //! //////////////////////////////////////////////////////////////////////
+        //! Exiting State in blackhole_skill_controller when all attacks are over
+        //! /////////////////////////////////////////////////////////////////////
     }
 }
