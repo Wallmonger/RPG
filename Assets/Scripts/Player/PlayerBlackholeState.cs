@@ -57,8 +57,8 @@ public class PlayerBlackholeState : PlayerState
             }
 
         }
-        //! //////////////////////////////////////////////////////////////////////
-        //! Exiting State in blackhole_skill_controller when all attacks are over
-        //! /////////////////////////////////////////////////////////////////////
+
+        if (player.skill.blackhole.SkillCompleted())
+            stateMachine.ChangeState(player.airState);
     }
 }
