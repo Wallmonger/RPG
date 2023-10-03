@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Crystal_Skill_Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private float crystalExistTimer;
+
+
+    public void SetupCrystal(float _crystalDuration)
     {
-        
+        crystalExistTimer = _crystalDuration;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        crystalExistTimer -= Time.deltaTime;    
+
+        if (crystalExistTimer < 0)
+            SelfDestroy();
+            
     }
+
+    public void SelfDestroy() => Destroy(gameObject);
 }
