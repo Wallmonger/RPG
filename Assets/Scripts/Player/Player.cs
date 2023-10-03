@@ -80,7 +80,7 @@ public class Player : Entity
 
     }
 
-
+    //! Start()
     protected override void Start()
     {
         base.Start();
@@ -94,11 +94,15 @@ public class Player : Entity
 
     }
 
+    //! UPDATE ()
     protected override void Update()
     {
         base.Update();
         StateMachine.currentState.Update();
         CheckForDashInput();
+
+        if (Input.GetKeyDown(KeyCode.F))
+            skill.crystal.CanUseSkill();
     }
 
     // Assign new sword on throwing
