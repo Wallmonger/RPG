@@ -33,8 +33,13 @@ public class Crystal_Skill : Skill
             
         else
         {
+            // Switching player position with the crystal 
+            Vector2 playerPos = player.transform.position;
+
             player.transform.position = currentCrystal.transform.position;
-            Destroy(currentCrystal);
+
+            currentCrystal.transform.position = playerPos;
+            currentCrystal.GetComponent<Crystal_Skill_Controller>()?.FinishCrystal();
         }
 
     }
