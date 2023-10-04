@@ -5293,7 +5293,7 @@ Transform:
   m_GameObject: {fileID: 819224929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.37, y: 2.37, z: 2.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1734720612}
@@ -5990,7 +5990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  crystalDuration: 0.84
+  crystalDuration: 2
   crystalPrefab: {fileID: 511044493290061091, guid: 31eebde9b896e664baeb4bf884958a93, type: 3}
 --- !u!1 &1203781586
 GameObject:
@@ -6373,7 +6373,7 @@ Transform:
   m_GameObject: {fileID: 1356874831}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6875, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1426578355}

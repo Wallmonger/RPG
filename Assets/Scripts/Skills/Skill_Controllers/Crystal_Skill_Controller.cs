@@ -6,10 +6,17 @@ public class Crystal_Skill_Controller : MonoBehaviour
 {
     private float crystalExistTimer;
 
+    private bool canExplode;
+    private bool canMoveToEnemy;
+    private float moveSpeed;
 
-    public void SetupCrystal(float _crystalDuration)
+
+    public void SetupCrystal(float _crystalDuration, bool _canExplode, bool _canMoveToEnemy, float _moveSpeed)
     {
         crystalExistTimer = _crystalDuration;
+        canExplode = _canExplode;
+        canMoveToEnemy = _canMoveToEnemy;
+        moveSpeed = _moveSpeed;
     }
 
     private void Update()
