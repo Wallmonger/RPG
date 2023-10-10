@@ -20,6 +20,7 @@ public class Crystal_Skill : Skill
     [SerializeField] private bool canUseMultiStacks;
     [SerializeField] private int amountOfStacks;
     [SerializeField] private float multiStackCooldown;
+    [SerializeField] private float useTimeWindow;
     [SerializeField] private List<GameObject> crystalLeft = new List<GameObject>();
 
     public override void UseSkill()
@@ -65,6 +66,13 @@ public class Crystal_Skill : Skill
             //Respawn crystal
             if (crystalLeft.Count > 0) 
             {
+
+                // Trigger cooldown on the first use of crystal
+                if (crystalLeft.Count == amountOfStacks)
+                    Invoke("ResetAbility", useTimeWindow);
+                
+              
+
                 // While there is at least 1 crystal left, 0 cooldown
                 cooldown = 0;
 
@@ -95,10 +103,23 @@ public class Crystal_Skill : Skill
 
     private void RefillCrystal()
     {
-        for (int i = 0; i < amountOfStacks; i++)
+        int amountToAdd = amountOfStacks - crystalLeft.Count;
+
+        for (int i = 0; i < amountToAdd; i++)
         {
             crystalLeft.Add(crystalPrefab);
         }
+    }
+
+
+    private void ResetAbility()
+    {
+        // If mutliCrystal is already in cooldown, return
+        if (cooldownTimer > 0)
+            return; 
+
+        cooldownTimer = multiStackCooldown;
+        RefillCrystal();
     }
 
 }
