@@ -42,7 +42,10 @@ public class Crystal_Skill_Controller : MonoBehaviour
 
             // Crystal explosion when close to enemy
             if (Vector2.Distance(transform.position, closestTarget.position) < 1)
+            {
                 FinishCrystal();
+                canMoveToEnemy = false;
+            }
         }
 
         if (canGrow)

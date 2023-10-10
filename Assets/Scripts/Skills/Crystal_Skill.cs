@@ -33,6 +33,11 @@ public class Crystal_Skill : Skill
             
         else
         {
+            // If crystal can move, prevent teleport
+            if (canMoveToEnemy)
+                return;
+            
+
             // Switching player position with the crystal 
             Vector2 playerPos = player.transform.position;
 
