@@ -36,7 +36,7 @@ public class Clone_Skill_Controller : MonoBehaviour
     }
 
     // Setting the created object on the position of the player, when entering dashState
-    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset)
+    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy)
     {
         // If the player has unlocked the skill, attack animation will play on the clone, at random from 1 to 3
         if (_canAttack )
@@ -47,7 +47,7 @@ public class Clone_Skill_Controller : MonoBehaviour
         cloneTimer = _cloneDuration;
         transform.position = _newTransform.position + _offset;
 
-
+        closestEnemy = _closestEnemy;
         FaceClosestTarget();
     }
 
@@ -73,28 +73,6 @@ public class Clone_Skill_Controller : MonoBehaviour
 
     private void FaceClosestTarget()
     {
-        // Will search for colliders in a circle, where clone is the center
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25);
-
-        float closestDistance = Mathf.Infinity;
-
-        foreach (var hit in colliders)
-        {
-            if (hit.GetComponent<Enemy>() != null )
-            {
-                // Retrieve distance to enemy currently in the loop, compared to the clone position
-                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
-
-                // If the distance is less than the last occurence, register enemyPosition and new closestDistance
-                if (distanceToEnemy < closestDistance)
-                {
-                    closestDistance = distanceToEnemy;
-                    closestEnemy = hit.transform;
-                }
-                
-            }
-        }
-
         // at the end of the loop, we check the distance of the closest enemy, if the player is on the right of the enemy (positive value), we flip the clone
         if (closestEnemy != null)
         {
