@@ -13,8 +13,8 @@ public class PlayerDashState : PlayerState
     {
         base.Enter();
 
-        // Sending to CloneSkill, the position value of the player, to make a clone image
-        player.skill.clone.CreateClone(player.transform, Vector3.zero);
+        // Creating clone if unlocked
+        player.skill.clone.CreateCloneOnDashStart();
 
         stateTimer = player.dashDuration;
     }
@@ -22,6 +22,9 @@ public class PlayerDashState : PlayerState
     public override void Exit()
     {
         base.Exit();
+
+        // If dashEndClone is unlock, triggers a clone
+        player.skill.clone.CreateCloneOnDashEnd();
         player.SetVelocity(0, rb.velocity.y);
     }
 

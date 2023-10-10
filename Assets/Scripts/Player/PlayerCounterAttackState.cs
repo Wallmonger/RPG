@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerCounterAttackState : PlayerState
 {
+
+    private bool canCreateClone;
+
     public PlayerCounterAttackState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -12,6 +15,7 @@ public class PlayerCounterAttackState : PlayerState
     {
         base.Enter();
 
+        canCreateClone = true;
         stateTimer = player.counterAttackDuration;
 
         // Instantiate animation for successful attack but disabled, to activate it in case of a SuccessCounterAtk
@@ -38,10 +42,17 @@ public class PlayerCounterAttackState : PlayerState
             if (hit.GetComponent<Enemy>() != null)
             {
                 // CanBeStunned() will activate stunnedState on enemy, and return true to trigger this condition
-                if(hit.GetComponent<Enemy>().CanBeStunned())
+                if (hit.GetComponent<Enemy>().CanBeStunned())
                 {
                     stateTimer = 10f;
                     player.anim.SetBool("SuccessfulCounterAttack", true);
+
+                    if(canCreateClone)
+                    {
+                        // Prevent multi-clone on single parry
+                        canCreateClone = false;
+                        player.skill.clone.CreateCloneOnCounterAttack(hit.transform);
+                    }
                 }
             }
         }
