@@ -14,7 +14,10 @@ public class Clone_Skill : Skill
     [SerializeField] private bool createCloneOnDashStart;
     [SerializeField] private bool createCloneOnDashEnd;
     [SerializeField] private bool canCreateCloneOnCounterAttack;
+
+    [Header("Clone Duplication")]
     [SerializeField] private bool canDuplicateClone;
+    [SerializeField] private float chanceToDuplicate;
 
 
     // After getting _clonePosition from DashState
@@ -24,7 +27,8 @@ public class Clone_Skill : Skill
         GameObject newClone = Instantiate(clonePrefab);
 
         // Sending the data of position to our script on the prefab
-        newClone.GetComponent<Clone_Skill_Controller>().SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone);
+        newClone.GetComponent<Clone_Skill_Controller>().
+            SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone, chanceToDuplicate);
     }
 
     public void CreateCloneOnDashStart()
