@@ -37,13 +37,9 @@ public class Crystal_Skill : Skill
         // No crystal = create one. Else teleport to existing crystal then remove it
         if (currentCrystal == null)
         {
-            currentCrystal = Instantiate(crystalPrefab, player.transform.position, Quaternion.identity);
-            Crystal_Skill_Controller currentCrystalScript = currentCrystal.GetComponent<Crystal_Skill_Controller>();
-
-            currentCrystalScript.SetupCrystal(crystalDuration, canExplode, canMoveToEnemy, moveSpeed, FindClosestEnemy(currentCrystal.transform));
-
+            CreateCrystal();
         }
-            
+
         else
         {
             // If crystal can move, prevent teleport
@@ -67,6 +63,14 @@ public class Crystal_Skill : Skill
             }
         }
 
+    }
+
+    public void CreateCrystal()
+    {
+        currentCrystal = Instantiate(crystalPrefab, player.transform.position, Quaternion.identity);
+        Crystal_Skill_Controller currentCrystalScript = currentCrystal.GetComponent<Crystal_Skill_Controller>();
+
+        currentCrystalScript.SetupCrystal(crystalDuration, canExplode, canMoveToEnemy, moveSpeed, FindClosestEnemy(currentCrystal.transform));
     }
 
     private bool CanUseMultiCrystal()

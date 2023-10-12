@@ -19,10 +19,20 @@ public class Clone_Skill : Skill
     [SerializeField] private bool canDuplicateClone;
     [SerializeField] private float chanceToDuplicate;
 
+    [Header("Crystal instead of clone")]
+    [SerializeField] private bool crystalInsteadOfClone;
+
 
     // After getting _clonePosition from DashState
     public void CreateClone(Transform _clonePosition, Vector3 _offset)
     {
+        if (crystalInsteadOfClone)
+        {
+            SkillManager.instance.crystal.CreateCrystal();
+            return;
+        }
+
+
         // Creating a gameObject variable which contains our prefab (clone object)
         GameObject newClone = Instantiate(clonePrefab);
 
