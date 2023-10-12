@@ -29,8 +29,10 @@ public class Crystal_Skill_Controller : MonoBehaviour
 
     public void ChooseRandomEnemy()
     {
+        float radius = SkillManager.instance.blackhole.GetBlackholeRadius();
+
         // Searching for enemy in layer, then take a random one
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25, whatIsEnemy);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, whatIsEnemy);
 
         if (colliders.Length > 0)
             closestTarget = colliders[Random.Range(0, colliders.Length)].transform;

@@ -56,4 +56,11 @@ public class Blackhole_Skill : Skill
 
         return false;
     }
+
+
+    // Getting true radius of blackhole (size / circleCollider.radius) for crystal blackhole hitbox
+    public float GetBlackholeRadius()
+    {
+        return maxSize / 2;
+    }
 }
