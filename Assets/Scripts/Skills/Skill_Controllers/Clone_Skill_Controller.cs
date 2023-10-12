@@ -13,6 +13,7 @@ public class Clone_Skill_Controller : MonoBehaviour
     [SerializeField] private Transform attackCheck;
     [SerializeField] private float attackCheckRadius = .8f;
     private Transform closestEnemy;
+    private bool canDuplicateClone;
 
     private void Awake()
     {
@@ -36,7 +37,7 @@ public class Clone_Skill_Controller : MonoBehaviour
     }
 
     // Setting the created object on the position of the player, when entering dashState
-    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy)
+    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicate)
     {
         // If the player has unlocked the skill, attack animation will play on the clone, at random from 1 to 3
         if (_canAttack )
@@ -48,6 +49,7 @@ public class Clone_Skill_Controller : MonoBehaviour
         transform.position = _newTransform.position + _offset;
 
         closestEnemy = _closestEnemy;
+        canDuplicateClone = _canDuplicate;
         FaceClosestTarget();
     }
 
@@ -67,7 +69,19 @@ public class Clone_Skill_Controller : MonoBehaviour
         foreach (var hit in colliders)
         {
             if (hit.GetComponent<Enemy>() != null)
+            {
                 hit.GetComponent<Enemy>().Damage();
+
+                // Clone duplication
+                if (canDuplicateClone)
+                {
+                    // Setting percentage chance of duplication (99%)
+                    if (Random.Range(0, 100) < 99)
+                    {
+                        SkillManager.instance.clone.CreateClone(hit.transform, new Vector3(1.5f, 0));
+                    }
+                }
+            }
         }
     }
 
