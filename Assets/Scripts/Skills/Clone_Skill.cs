@@ -20,7 +20,7 @@ public class Clone_Skill : Skill
     [SerializeField] private float chanceToDuplicate;
 
     [Header("Crystal instead of clone")]
-    [SerializeField] private bool crystalInsteadOfClone;
+    public bool crystalInsteadOfClone;
 
 
     // After getting _clonePosition from DashState

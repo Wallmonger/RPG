@@ -37,6 +37,10 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         cloneAttackCooldown = _cloneAttackCooldown;
 
         blackholeTimer = _blackholeDuration;
+
+        // Prevent player for becoming invisible on crystal anim
+        if (SkillManager.instance.clone.crystalInsteadOfClone)
+            playerCanDisapear = false;
     }
 
     private void Update()
@@ -113,8 +117,18 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             else
                 xOffset = -2;
 
-            // Create a clone at a random enemy position in the list, with an offset
-            SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0));
+            // If ability of crystal instead of clone is unlocked (cloneSkill)
+            if (SkillManager.instance.clone.crystalInsteadOfClone)
+            {
+                SkillManager.instance.crystal.CreateCrystal();
+                SkillManager.instance.crystal.CurrentCrystalChooseRandomTarget();
+            }
+            else
+            {
+                // Create a clone at a random enemy position in the list, with an offset
+                SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0));
+            }
+
             amountOfAttacks--;
 
             if (amountOfAttacks <= 0)

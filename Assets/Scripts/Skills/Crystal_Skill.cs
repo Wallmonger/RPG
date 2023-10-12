@@ -73,6 +73,9 @@ public class Crystal_Skill : Skill
         currentCrystalScript.SetupCrystal(crystalDuration, canExplode, canMoveToEnemy, moveSpeed, FindClosestEnemy(currentCrystal.transform));
     }
 
+    public void CurrentCrystalChooseRandomTarget() => currentCrystal.GetComponent<Crystal_Skill_Controller>().ChooseRandomEnemy();
+    
+
     private bool CanUseMultiCrystal()
     {
         if (canUseMultiStacks)
