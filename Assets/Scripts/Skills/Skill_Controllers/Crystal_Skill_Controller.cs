@@ -51,6 +51,13 @@ public class Crystal_Skill_Controller : MonoBehaviour
         // Making crystal move towards closest enemy
         if (canMoveToEnemy)
         {
+            //TODO FIX CRYSTAL NOT CHOOSING DIRECTION IF THERE'S NO ENEMY AT SIGHT 
+            if (!closestTarget)
+            {
+                FinishCrystal();
+                return;
+            }
+
             transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
 
             // Crystal explosion when close to enemy

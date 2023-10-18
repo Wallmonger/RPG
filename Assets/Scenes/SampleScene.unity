@@ -248,7 +248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127769973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.89, y: -1.34, z: 0}
+  m_LocalPosition: {x: -11.06, y: -1.34, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4740,7 +4740,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457773856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.77, y: -1.34, z: 0}
+  m_LocalPosition: {x: -1.6, y: -1.34, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5930,6 +5930,7 @@ MonoBehaviour:
   canCreateCloneOnCounterAttack: 1
   canDuplicateClone: 1
   chanceToDuplicate: 35
+  crystalInsteadOfClone: 1
 --- !u!114 &1050924414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5975,7 +5976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  amountOfAttacks: 5
+  amountOfAttacks: 15
   cloneCooldown: 0.35
   blackholeDuration: 3
   blackHolePrefab: {fileID: 2254537363952512331, guid: c391865e0c5ffff4ba43a715e747aef9, type: 3}
@@ -11159,7 +11160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1951744496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.12, y: -1.34, z: 0}
+  m_LocalPosition: {x: -20.38, y: -1.34, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11628,10 +11629,6 @@ PrefabInstance:
     - target: {fileID: 511044493290061091, guid: 31eebde9b896e664baeb4bf884958a93, type: 3}
       propertyPath: m_Name
       value: Crystal
-      objectReference: {fileID: 0}
-    - target: {fileID: 811759809471536113, guid: 31eebde9b896e664baeb4bf884958a93, type: 3}
-      propertyPath: growSpeed
-      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31eebde9b896e664baeb4bf884958a93, type: 3}
