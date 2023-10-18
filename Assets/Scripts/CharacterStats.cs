@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    public Stat strength;
     public Stat damage;
     public Stat maxHealth;
 
 
     [SerializeField] private int currentHealth;
     
-    void Start()
+    protected virtual void Start()
     {
         currentHealth = maxHealth.GetValue();
-
-        // Stuff modifier
-        damage.AddModifier(4);
-        
     }
 
-    public void TakeDamage(int _damage)
+    public virtual void DoDamage(CharacterStats _targetStats)
+    {
+        int totalDamage = damage.GetValue() + strength.GetValue();
+        _targetStats.TakeDamage(totalDamage);
+    }
+
+    public virtual void TakeDamage(int _damage)
     {
         currentHealth -= _damage;
+
+        Debug.Log(_damage);
 
         if (currentHealth < 0)
         {
@@ -29,7 +34,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died");
     }
