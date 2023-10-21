@@ -44,6 +44,7 @@ public class Player : Entity
     public PlayerDashState dashState { get; private set; }
     public PlayerWallSlideState wallSlide { get; private set; }
     public PlayerWallJumpState wallJump { get; private set; }
+    public PlayerDeadState deadState { get; private set; }  
 
 
     public PlayerPrimaryAttackState primaryAttack { get; private set; }
@@ -78,6 +79,7 @@ public class Player : Entity
         catchSword = new PlayerCatchSwordState(this, StateMachine, "CatchSword");
         blackHole = new PlayerBlackholeState(this, StateMachine, "Jump");
 
+        deadState = new PlayerDeadState(this, StateMachine, "Die");
     }
 
     //! Start()
@@ -134,7 +136,6 @@ public class Player : Entity
         if (IsWallDetected())
             return;
         
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
         {
             dashDir = Input.GetAxisRaw("Horizontal");
@@ -146,11 +147,14 @@ public class Player : Entity
 
             // if (dahsDir != 0) would be a solution if we don't want a dash performed after pressing LS and no direction.
             StateMachine.ChangeState(dashState);
-        }
-
-        
+        }   
     }
-    
-    
-    
+
+    public override void Die()
+    {
+        base.Die();
+
+        StateMachine.ChangeState(deadState);
+    }
+
 }

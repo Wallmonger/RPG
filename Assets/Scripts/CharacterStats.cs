@@ -28,10 +28,10 @@ public class CharacterStats : MonoBehaviour
 
         Debug.Log(_damage);
 
-        if (currentHealth < 0)
-        {
+        // Trigger death anim for entities
+        if (currentHealth <= 0)
             Die();
-        }
+        
     }
 
     protected virtual void Die()
