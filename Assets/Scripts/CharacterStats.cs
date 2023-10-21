@@ -29,12 +29,24 @@ public class CharacterStats : MonoBehaviour
         // Avoid Damages by evasion %
         if (TargetCanAvoidAttack(_targetStats))
             return;
-        
+
 
         int totalDamage = damage.GetValue() + strength.GetValue();
+
+
+
+        totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage);
     }
 
+    private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
+    {
+        totalDamage -= _targetStats.armor.GetValue();
+
+        // Fix totalDamage between 0 and MaxValue to prevent healing from negative damage
+        totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
+        return totalDamage;
+    }
 
     public virtual void TakeDamage(int _damage)
     {
