@@ -18,6 +18,18 @@ public class CharacterStats : MonoBehaviour
     public Stat maxHealth;
     public Stat armor;
     public Stat evasion;
+    public Stat magicResistance;
+
+    [Header("Magic Stats")]
+    public Stat fireDamage;
+    public Stat iceDamage;
+    public Stat lightningDamage;
+
+
+    public bool isIgnited;
+    public bool isChilled;
+    public bool isShocked;
+
 
 
 
@@ -46,9 +58,42 @@ public class CharacterStats : MonoBehaviour
 
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
-        _targetStats.TakeDamage(totalDamage);
+        /*_targetStats.TakeDamage(totalDamage);*/
+        DoMagicalDamage(_targetStats);
     }
 
+    public virtual void DoMagicalDamage(CharacterStats _targetStats)
+    {
+        int _fireDamage = fireDamage.GetValue();
+        int _iceDamage = iceDamage.GetValue();
+        int _lightningDamage = lightningDamage.GetValue();
+
+        int totalMagicDamage = _fireDamage + _iceDamage + _lightningDamage + intelligence.GetValue();
+
+        // Remove damage based on magic resistance
+        totalMagicDamage = CheckTargetResistance(_targetStats, totalMagicDamage);
+
+        _targetStats.TakeDamage(totalMagicDamage);
+
+    }
+
+    private static int CheckTargetResistance(CharacterStats _targetStats, int totalMagicDamage)
+    {
+        totalMagicDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
+        totalMagicDamage = Mathf.Clamp(totalMagicDamage, 0, int.MaxValue);
+        return totalMagicDamage;
+    }
+
+    public void ApplyElements(bool _ignite, bool _chill, bool _shock)
+    {
+        // If character already have status effect
+        if (isIgnited || isChilled || isShocked)
+            return;
+
+        isIgnited = _ignite;
+        isChilled = _chill;
+        isShocked = _shock;
+    }
 
     public virtual void TakeDamage(int _damage)
     {
