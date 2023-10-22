@@ -72,9 +72,46 @@ public class CharacterStats : MonoBehaviour
 
         // Remove damage based on magic resistance
         totalMagicDamage = CheckTargetResistance(_targetStats, totalMagicDamage);
-
         _targetStats.TakeDamage(totalMagicDamage);
 
+        // If there is no magical damage, skip status effects
+        if (Mathf.Max(_fireDamage, _iceDamage, _lightningDamage) <= 0)
+            return;
+
+        bool canApplyIgnite = _fireDamage > _iceDamage && _fireDamage > _lightningDamage;
+        bool canApplyChill = _iceDamage > _fireDamage && _iceDamage > _lightningDamage;
+        bool canApplyShock = _lightningDamage > _fireDamage && _lightningDamage > _iceDamage;
+
+        // Generate random float from 0 to 1, chance to add ailment type if all boolean return false, then stop the loop
+        while (!canApplyIgnite && !canApplyChill && !canApplyShock)
+        {
+            
+            if (Random.value < .3f && _fireDamage > 0) 
+            {
+                canApplyIgnite = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                Debug.Log("Ignited");
+                return;
+            }
+
+            if (Random.value < .5f && _iceDamage > 0)
+            {
+                canApplyChill = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                Debug.Log("Frozen");
+                return;
+            }
+            if (Random.value < .5f && _lightningDamage > 0)
+            {
+                canApplyShock = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                Debug.Log("Shocked");
+                return;
+            }
+        }
+
+
+        _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
 
     private static int CheckTargetResistance(CharacterStats _targetStats, int totalMagicDamage)
@@ -84,7 +121,7 @@ public class CharacterStats : MonoBehaviour
         return totalMagicDamage;
     }
 
-    public void ApplyElements(bool _ignite, bool _chill, bool _shock)
+    public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
     {
         // If character already have status effect
         if (isIgnited || isChilled || isShocked)
@@ -98,8 +135,6 @@ public class CharacterStats : MonoBehaviour
     public virtual void TakeDamage(int _damage)
     {
         currentHealth -= _damage;
-
-        Debug.Log(_damage);
 
         // Trigger death anim for entities
         if (currentHealth <= 0)
