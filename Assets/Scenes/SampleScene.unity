@@ -5157,10 +5157,10 @@ MonoBehaviour:
     baseValue: 5
     modifiers: 
   iceDamage:
-    baseValue: 0
+    baseValue: 5
     modifiers: 
   lightningDamage:
-    baseValue: 0
+    baseValue: 5
     modifiers: 
   isIgnited: 0
   isChilled: 0
