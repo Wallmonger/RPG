@@ -30,9 +30,13 @@ public class CharacterStats : MonoBehaviour
     public bool isChilled; // Armor -20%
     public bool isShocked; // Accuracy -20%
 
-    private float ignitedTimer;                 
+    private float ignitedTimer;
+    private float chilledTimer;
+    private float shockedTimer;
+
     private float igniteDamageCooldown = .3f;   // Tick damage cooldown
     private float igniteDamageTimer;            // Tick damage clock
+    private int igniteDamage;
 
 
 
@@ -47,16 +51,30 @@ public class CharacterStats : MonoBehaviour
     protected virtual void Update()
     {
         ignitedTimer -= Time.deltaTime;
+        chilledTimer -= Time.deltaTime;
+        shockedTimer -= Time.deltaTime;
+
         igniteDamageTimer -= Time.deltaTime;
 
         // Remove ignite ailment if cooldown is reached
         if (ignitedTimer < 0)
             isIgnited = false;
 
-        // wait .3f seconds to make another damage
-        if (igniteDamageTimer < 0)
+        if (chilledTimer < 0)
+            isChilled = false;
+
+        if (shockedTimer < 0)
+            isShocked = false;
+
+        // wait .3f seconds to make another damage, if ignited
+        if (igniteDamageTimer < 0 && isIgnited)
         {
-            Debug.Log("Burning damage taken");
+            Debug.Log($"Burn tick : {igniteDamage}");
+            currentHealth -= igniteDamage;
+
+            if (currentHealth < 0)
+                Die();
+
             igniteDamageTimer = igniteDamageCooldown;
         }
     }
@@ -110,7 +128,6 @@ public class CharacterStats : MonoBehaviour
             {
                 canApplyIgnite = true;
                 _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
-                Debug.Log("Ignited");
                 return;
             }
 
@@ -118,21 +135,23 @@ public class CharacterStats : MonoBehaviour
             {
                 canApplyChill = true;
                 _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
-                Debug.Log("Frozen");
                 return;
             }
             if (Random.value < .5f && _lightningDamage > 0)
             {
                 canApplyShock = true;
                 _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
-                Debug.Log("Shocked");
                 return;
             }
         }
 
+        if (canApplyIgnite)
+            _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_fireDamage * .2f));
 
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
+
+    public void SetupIgniteDamage(int _damage) => igniteDamage = _damage;
 
     private static int CheckTargetResistance(CharacterStats _targetStats, int totalMagicDamage)
     {
@@ -151,6 +170,18 @@ public class CharacterStats : MonoBehaviour
         {
             isIgnited = _ignite;
             ignitedTimer = 4;
+        }
+
+        if (_chill)
+        {
+            isChilled = _chill;
+            chilledTimer = 2;
+        }
+
+        if (_shock)
+        {
+            isShocked = _shock;
+            shockedTimer = 2;
         }
 
         isChilled = _chill;
