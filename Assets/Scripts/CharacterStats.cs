@@ -39,13 +39,13 @@ public class CharacterStats : MonoBehaviour
     private int igniteDamage;
 
 
-
-    [SerializeField] private int currentHealth;
+    public int currentHealth;
+    public System.Action onHealthChanged;
     
     protected virtual void Start()
     {
         critPower.SetDefaultValue(150);
-        currentHealth = maxHealth.GetValue();
+        currentHealth = GetMaxHealthValue();
     }
 
     protected virtual void Update()
@@ -70,7 +70,8 @@ public class CharacterStats : MonoBehaviour
         if (igniteDamageTimer < 0 && isIgnited)
         {
             Debug.Log($"Burn tick : {igniteDamage}");
-            currentHealth -= igniteDamage;
+            /*currentHealth -= igniteDamage;*/
+            DecreaseHealthBy(igniteDamage);
 
             if (currentHealth < 0)
                 Die();
@@ -153,6 +154,14 @@ public class CharacterStats : MonoBehaviour
 
     public void SetupIgniteDamage(int _damage) => igniteDamage = _damage;
 
+    protected virtual void DecreaseHealthBy(int _damage)
+    {
+        currentHealth -= _damage;
+
+        if (onHealthChanged != null)
+            onHealthChanged();
+    }
+
     private static int CheckTargetResistance(CharacterStats _targetStats, int totalMagicDamage)
     {
         totalMagicDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
@@ -190,7 +199,7 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void TakeDamage(int _damage)
     {
-        currentHealth -= _damage;
+        DecreaseHealthBy(_damage);
 
         // Trigger death anim for entities
         if (currentHealth <= 0)
@@ -248,5 +257,11 @@ public class CharacterStats : MonoBehaviour
         float critDamage = _damage * totalCritPower;
        
         return Mathf.RoundToInt(critDamage);
+    }
+
+
+    public int GetMaxHealthValue()
+    {
+        return maxHealth.GetValue() + vitality.GetValue() * 5; // Each point in vitality gives 5 hp
     }
 }
