@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    private EntityFX fx;
+
     [Header("Major Stats")]
     public Stat strength; // dmg / crit power
     public Stat agility;  // evasion / crit chances
@@ -46,6 +48,8 @@ public class CharacterStats : MonoBehaviour
     {
         critPower.SetDefaultValue(150);
         currentHealth = GetMaxHealthValue();
+        
+        fx = GetComponent<EntityFX>();
     }
 
     protected virtual void Update()
@@ -69,7 +73,6 @@ public class CharacterStats : MonoBehaviour
         // wait .3f seconds to make another damage, if ignited
         if (igniteDamageTimer < 0 && isIgnited)
         {
-            Debug.Log($"Burn tick : {igniteDamage}");
             /*currentHealth -= igniteDamage;*/
             DecreaseHealthBy(igniteDamage);
 
@@ -92,7 +95,6 @@ public class CharacterStats : MonoBehaviour
         if (CanCrit())
         {
             totalDamage = CalculateCriticalDamage(totalDamage); 
-            Debug.Log($"CRITICAL {totalDamage}!");
         }
 
 
@@ -178,7 +180,8 @@ public class CharacterStats : MonoBehaviour
         if (_ignite)
         {
             isIgnited = _ignite;
-            ignitedTimer = 4;
+            ignitedTimer = 2;
+            fx.IgniteFxFor(2);
         }
 
         if (_chill)

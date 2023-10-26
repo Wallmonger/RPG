@@ -12,6 +12,14 @@ public class EntityFX : MonoBehaviour
     [SerializeField] private Material hitMat;
     private Material originalMat;
 
+    [Header("Ailment FX Colors")]
+    [SerializeField] private Color chillColor;
+    [SerializeField] private Color[] igniteColor;
+    [SerializeField] private Color[] shockColor;
+
+
+
+
     private void Start()
     {
         // Assign sr to the sprite renderer in animator, from player or enemy
@@ -41,9 +49,24 @@ public class EntityFX : MonoBehaviour
             sr.color = Color.red;
     }
 
-    private void CancelRedBlink ()
+    private void CancelColorChange ()
     {
-        CancelInvoke();
+        CancelInvoke(); // Removes all Invoke on script
         sr.color = Color.white;
+    }
+
+    public void IgniteFxFor(float _seconds)
+    {
+        InvokeRepeating("IgniteColorFx", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+
+    private void IgniteColorFx()
+    {
+        if (sr.color != igniteColor[0])
+            sr.color = igniteColor[0];
+        else
+            sr.color = igniteColor[1];
+
     }
 }
