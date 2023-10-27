@@ -32,6 +32,8 @@ public class CharacterStats : MonoBehaviour
     public bool isChilled; // Armor -20%
     public bool isShocked; // Accuracy -20%
 
+    [SerializeField] private float ailmentsDuration = 4;
+
     private float ignitedTimer;
     private float chilledTimer;
     private float shockedTimer;
@@ -180,20 +182,22 @@ public class CharacterStats : MonoBehaviour
         if (_ignite)
         {
             isIgnited = _ignite;
-            ignitedTimer = 2;
-            fx.IgniteFxFor(2);
+            ignitedTimer = ailmentsDuration;
+            fx.IgniteFxFor(ailmentsDuration);
         }
 
         if (_chill)
         {
             isChilled = _chill;
-            chilledTimer = 2;
+            chilledTimer = ailmentsDuration;
+            fx.ChillFxFor(ailmentsDuration);
         }
 
         if (_shock)
         {
             isShocked = _shock;
-            shockedTimer = 2;
+            shockedTimer = ailmentsDuration;
+            fx.ShockFxFor(ailmentsDuration);
         }
 
         isChilled = _chill;
