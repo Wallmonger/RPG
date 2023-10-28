@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Clone_Skill_Controller : MonoBehaviour
 {
+    private Player player;
     private SpriteRenderer sr;
     private Animator anim;
 
@@ -40,13 +41,13 @@ public class Clone_Skill_Controller : MonoBehaviour
     }
 
     // Setting the created object on the position of the player, when entering dashState
-    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicate, float _chanceToDuplicate)
+    public void SetupClone (Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicate, float _chanceToDuplicate, Player _player)
     {
         // If the player has unlocked the skill, attack animation will play on the clone, at random from 1 to 3
         if (_canAttack )
             anim.SetInteger("AttackNumber", Random.Range(1, 3));
-        
 
+        player = _player;
 
         cloneTimer = _cloneDuration;
         transform.position = _newTransform.position + _offset;
@@ -75,7 +76,7 @@ public class Clone_Skill_Controller : MonoBehaviour
         {
             if (hit.GetComponent<Enemy>() != null)
             {
-                hit.GetComponent<Enemy>().DamageEffect();
+                player.stats.DoDamage(hit.GetComponent<CharacterStats>());
 
                 // Clone duplication
                 if (canDuplicateClone)
