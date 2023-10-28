@@ -210,51 +210,67 @@ public class CharacterStats : MonoBehaviour
         {
             if (!isShocked)
             {
-                isShocked = _shock;
-                shockedTimer = ailmentsDuration;
-                fx.ShockFxFor(ailmentsDuration);
+                ApplyShock(_shock);
             }
             else
             {
-                // Will search for colliders in a circle, where _checkTransform is the center
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25);
+                if (GetComponent<Player>() != null)
+                    return;
 
-                float closestDistance = Mathf.Infinity;
-                Transform closestEnemy = null;
-
-                foreach (var hit in colliders)
-                {
-                    if (hit.GetComponent<Enemy>() != null && Vector2.Distance(transform.position, hit.transform.position) > 1)  // Second condition to be sure it's another enemy
-                    {
-                        // Retrieve distance to enemy currently in the loop, compared to the _checkTransform position
-                        float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
-
-                        // If the distance is less than the last occurence, register enemyPosition and new closestDistance
-                        if (distanceToEnemy < closestDistance)
-                        {
-                            closestDistance = distanceToEnemy;
-                            closestEnemy = hit.transform;
-                        }
-
-                    }
-
-                    // If there is only one enemy, target him with the shock attack
-                    if (closestEnemy == null)
-                        closestEnemy = transform;
-
-                }
-
-                if (closestEnemy != null)
-                {
-                    GameObject newShockStrike = Instantiate(shockStrikePrefab, transform.position, Quaternion.identity);
-
-                    newShockStrike.GetComponent<ShockStrike_Controller>().Setup(shockDamage, closestEnemy.GetComponent<CharacterStats>());
-                }
+                HitNearestTargetWithShockStrike();
             }
         }
 /*
         isChilled = _chill;
         isShocked = _shock;*/
+    }
+
+    public void ApplyShock(bool _shock)
+    {
+        if (isShocked)
+            return;
+
+        isShocked = _shock;
+        shockedTimer = ailmentsDuration;
+        fx.ShockFxFor(ailmentsDuration);
+    }
+
+    private void HitNearestTargetWithShockStrike()
+    {
+        // Will search for colliders in a circle, where _checkTransform is the center
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25);
+
+        float closestDistance = Mathf.Infinity;
+        Transform closestEnemy = null;
+
+        foreach (var hit in colliders)
+        {
+            if (hit.GetComponent<Enemy>() != null && Vector2.Distance(transform.position, hit.transform.position) > 1)  // Second condition to be sure it's another enemy
+            {
+                // Retrieve distance to enemy currently in the loop, compared to the _checkTransform position
+                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
+
+                // If the distance is less than the last occurence, register enemyPosition and new closestDistance
+                if (distanceToEnemy < closestDistance)
+                {
+                    closestDistance = distanceToEnemy;
+                    closestEnemy = hit.transform;
+                }
+
+            }
+
+            // If there is only one enemy, target him with the shock attack
+            if (closestEnemy == null)
+                closestEnemy = transform;
+
+        }
+
+        if (closestEnemy != null)
+        {
+            GameObject newShockStrike = Instantiate(shockStrikePrefab, transform.position, Quaternion.identity);
+
+            newShockStrike.GetComponent<ShockStrike_Controller>().Setup(shockDamage, closestEnemy.GetComponent<CharacterStats>());
+        }
     }
 
     public virtual void TakeDamage(int _damage)
