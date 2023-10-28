@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
@@ -41,6 +42,9 @@ public class CharacterStats : MonoBehaviour
     private float igniteDamageCooldown = .3f;   // Tick damage cooldown
     private float igniteDamageTimer;            // Tick damage clock
     private int igniteDamage;
+
+    [SerializeField] private GameObject shockStrikePrefab;
+    private int shockDamage;
 
 
     public int currentHealth;
@@ -153,10 +157,15 @@ public class CharacterStats : MonoBehaviour
         if (canApplyIgnite)
             _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_fireDamage * .2f));
 
+        if (canApplyShock)
+            _targetStats.SetupShockStrikeDamage(Mathf.RoundToInt(_lightningDamage * .1f));
+
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
 
     public void SetupIgniteDamage(int _damage) => igniteDamage = _damage;
+
+    public void SetupShockStrikeDamage(int _damage) => shockDamage = _damage;
 
     protected virtual void DecreaseHealthBy(int _damage)
     {
@@ -175,18 +184,19 @@ public class CharacterStats : MonoBehaviour
 
     public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
     {
-        // If character already have status effect
-        if (isIgnited || isChilled || isShocked)
-            return;
+        // Checking conditions, shock can be cumulated
+        bool canApplyIgnite = !isIgnited && !isChilled && !isShocked;
+        bool canApplyChill = !isIgnited && !isChilled && isShocked;
+        bool canApplyShock = !isIgnited && !isChilled;
 
-        if (_ignite)
+        if (_ignite && canApplyIgnite)
         {
             isIgnited = _ignite;
             ignitedTimer = ailmentsDuration;
             fx.IgniteFxFor(ailmentsDuration);
         }
 
-        if (_chill)
+        if (_chill && canApplyChill)
         {
             isChilled = _chill;
             chilledTimer = ailmentsDuration;
@@ -196,15 +206,55 @@ public class CharacterStats : MonoBehaviour
             fx.ChillFxFor(ailmentsDuration);
         }
 
-        if (_shock)
+        if (_shock && canApplyShock)
         {
-            isShocked = _shock;
-            shockedTimer = ailmentsDuration;
-            fx.ShockFxFor(ailmentsDuration);
-        }
+            if (!isShocked)
+            {
+                isShocked = _shock;
+                shockedTimer = ailmentsDuration;
+                fx.ShockFxFor(ailmentsDuration);
+            }
+            else
+            {
+                // Will search for colliders in a circle, where _checkTransform is the center
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25);
 
+                float closestDistance = Mathf.Infinity;
+                Transform closestEnemy = null;
+
+                foreach (var hit in colliders)
+                {
+                    if (hit.GetComponent<Enemy>() != null && Vector2.Distance(transform.position, hit.transform.position) > 1)  // Second condition to be sure it's another enemy
+                    {
+                        // Retrieve distance to enemy currently in the loop, compared to the _checkTransform position
+                        float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
+
+                        // If the distance is less than the last occurence, register enemyPosition and new closestDistance
+                        if (distanceToEnemy < closestDistance)
+                        {
+                            closestDistance = distanceToEnemy;
+                            closestEnemy = hit.transform;
+                        }
+
+                    }
+
+                    // If there is only one enemy, target him with the shock attack
+                    if (closestEnemy == null)
+                        closestEnemy = transform;
+
+                }
+
+                if (closestEnemy != null)
+                {
+                    GameObject newShockStrike = Instantiate(shockStrikePrefab, transform.position, Quaternion.identity);
+
+                    newShockStrike.GetComponent<ShockStrike_Controller>().Setup(shockDamage, closestEnemy.GetComponent<CharacterStats>());
+                }
+            }
+        }
+/*
         isChilled = _chill;
-        isShocked = _shock;
+        isShocked = _shock;*/
     }
 
     public virtual void TakeDamage(int _damage)

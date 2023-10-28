@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThunderStrike_Controller : MonoBehaviour
+public class ShockStrike_Controller : MonoBehaviour
 {
     [SerializeField] private CharacterStats targetStats;
     [SerializeField] private float speed;
-   
+    private int damage;
 
     private Animator anim;
     private bool triggered;
@@ -16,10 +16,17 @@ public class ThunderStrike_Controller : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
     }
 
-    
+    public void Setup(int _damage, CharacterStats _targetStats)
+    {
+        targetStats = _targetStats;
+        damage = _damage;
+    }
     
     void Update()
     {
+        if (!targetStats)
+            return;
+
         if (triggered)
             return;
 
@@ -47,7 +54,7 @@ public class ThunderStrike_Controller : MonoBehaviour
 
     private void DamageAndSelfDestroy()
     {
-            targetStats.TakeDamage(1);
+            targetStats.TakeDamage(damage);
             Destroy(gameObject, .4f);
     }
 }
