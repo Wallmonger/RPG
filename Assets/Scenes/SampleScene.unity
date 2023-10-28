@@ -5377,14 +5377,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879878aa14b8d5142af2f11aba423370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashOcurrence: 5
+  flashOcurrence: 2
   flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 4d281c3fd55d3c046877b110463f46fe, type: 2}
-  chillColor: {r: 0, g: 1, b: 0.914711, a: 1}
+  chillColor:
+  - {r: 0, g: 1, b: 0.9600265, a: 1}
+  - {r: 0, g: 1, b: 0.9607843, a: 1}
   igniteColor:
   - {r: 0.9843137, g: 0.29411766, b: 0.29411766, a: 1}
-  - {r: 0.972549, g: 0.6745098, b: 0.6745098, a: 1}
-  shockColor: []
+  - {r: 0.9529412, g: 0.7529412, b: 0.7529412, a: 1}
+  shockColor:
+  - {r: 1, g: 0.8901961, b: 0.38431373, a: 1}
+  - {r: 0.96862745, g: 1, b: 0, a: 1}
 --- !u!114 &864920937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5419,7 +5423,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 50
+    baseValue: 500
     modifiers: 
   armor:
     baseValue: 0
@@ -5434,7 +5438,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   iceDamage:
-    baseValue: 0
+    baseValue: 10
     modifiers: 
   lightningDamage:
     baseValue: 0
@@ -6016,13 +6020,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashOcurrence: 2
-  flashDuration: 0.1
+  flashDuration: 0.2
   hitMat: {fileID: 2100000, guid: 4d281c3fd55d3c046877b110463f46fe, type: 2}
-  chillColor: {r: 0, g: 1, b: 0.9137255, a: 1}
+  chillColor:
+  - {r: 0, g: 1, b: 0.9600265, a: 1}
+  - {r: 0, g: 1, b: 0.9607843, a: 1}
   igniteColor:
   - {r: 0.9843137, g: 0.29411766, b: 0.29411766, a: 1}
   - {r: 0.9529412, g: 0.7529412, b: 0.7529412, a: 1}
-  shockColor: []
+  shockColor:
+  - {r: 1, g: 0.8901961, b: 0.38431373, a: 1}
+  - {r: 0.96862745, g: 1, b: 0, a: 1}
 --- !u!114 &1215893100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6057,7 +6065,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 100
+    baseValue: 1000
     modifiers: 
   armor:
     baseValue: 0
@@ -6069,10 +6077,10 @@ MonoBehaviour:
     baseValue: 1
     modifiers: 
   fireDamage:
-    baseValue: 12
+    baseValue: 0
     modifiers: 
   iceDamage:
-    baseValue: 0
+    baseValue: 10
     modifiers: 
   lightningDamage:
     baseValue: 0

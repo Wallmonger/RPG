@@ -190,6 +190,9 @@ public class CharacterStats : MonoBehaviour
         {
             isChilled = _chill;
             chilledTimer = ailmentsDuration;
+
+            float slowPercentage = .3f;
+            GetComponent<Entity>().SlowEntityBy(slowPercentage, ailmentsDuration); 
             fx.ChillFxFor(ailmentsDuration);
         }
 
