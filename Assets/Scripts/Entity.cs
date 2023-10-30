@@ -66,11 +66,7 @@ public class Entity : MonoBehaviour
 
     }
 
-    public virtual void DamageEffect()
-    {
-        fx.StartCoroutine("FlashFX");
-        StartCoroutine("HitKnockback");
-    }
+    public virtual void DamageImpact() => StartCoroutine("HitKnockback");
 
     protected virtual IEnumerator HitKnockback()
     {
@@ -147,14 +143,6 @@ public class Entity : MonoBehaviour
         FlipController(_xVelocity);
     }
     #endregion
-
-    public void MakeTransparent(bool _transparent)
-    {
-        if (_transparent)
-            sr.color = Color.clear;
-        else 
-            sr.color = Color.white; 
-    }
 
     public virtual void Die()
     {

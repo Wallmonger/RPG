@@ -96,7 +96,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         if (playerCanDisapear)
         {
             playerCanDisapear = false;
-            PlayerManager.instance.player.MakeTransparent(true);
+            PlayerManager.instance.player.fx.MakeTransparent(true);
         }
     }
 
@@ -179,10 +179,8 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     {
         // If there is no more hotKey
         if (keyCodeList.Count <= 0)
-        {
-            Debug.LogWarning("No enough keys in the keycodelist");
-            return;
-        }
+           return;
+        
 
         // Prevent enemy entering the blackhole after reaching its max size
         if (!canCreateHotKeys)

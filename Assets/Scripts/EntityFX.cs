@@ -29,7 +29,13 @@ public class EntityFX : MonoBehaviour
         originalMat = sr.material;
     }
 
-
+    public void MakeTransparent(bool _transparent)
+    {
+        if (_transparent)
+            sr.color = Color.clear;
+        else
+            sr.color = Color.white;
+    }
     private IEnumerator FlashFX()
     {
         #region Multiple blink
@@ -52,7 +58,6 @@ public class EntityFX : MonoBehaviour
         sr.color = currentColor;
         sr.material = originalMat;
     }
-
     private void RedColorBlink()
     {
         if (sr.color != Color.white)
@@ -60,31 +65,26 @@ public class EntityFX : MonoBehaviour
         else 
             sr.color = Color.red;
     }
-
     private void CancelColorChange ()
     {
         CancelInvoke(); // Removes all Invoke on script
         sr.color = Color.white;
     }
-
     public void IgniteFxFor(float _seconds)
     {
         InvokeRepeating("IgniteColorFx", 0, .3f);
         Invoke("CancelColorChange", _seconds);
     }
-
     public void ChillFxFor(float _seconds)
     {
         InvokeRepeating("ChillColorFx", 0, .3f);
         Invoke("CancelColorChange", _seconds);
     }
-
     public void ShockFxFor(float _seconds)
     {
         InvokeRepeating("ShockColorFx", 0, .3f);
         Invoke("CancelColorChange", _seconds);
     }
-
     private void IgniteColorFx()
     {
         if (sr.color != igniteColor[0])
@@ -92,7 +92,6 @@ public class EntityFX : MonoBehaviour
         else
             sr.color = igniteColor[1];
     }
-
     private void ChillColorFx()
     {
         if (sr.color != chillColor[0])
@@ -100,7 +99,6 @@ public class EntityFX : MonoBehaviour
         else
             sr.color = chillColor[1];
     }
-
     private void ShockColorFx()
     {
         if (sr.color != shockColor[0])
