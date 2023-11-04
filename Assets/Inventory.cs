@@ -12,6 +12,13 @@ public class Inventory : MonoBehaviour
     // Like a list but with Key/Value pair 
     public Dictionary<ItemData, InventoryItem> inventoryDictionary;
 
+
+    [Header("Inventory UI")]
+
+    [SerializeField] private Transform inventorySlotParent;
+
+    private UI_ItemSlot[] itemSlot;
+
     // Prevent duplicate between scenes
     private void Awake()
     {
@@ -24,7 +31,19 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         inventoryItems = new List<InventoryItem>();
-        inventoryDictionary = new Dictionary<ItemData, InventoryItem>();    
+        inventoryDictionary = new Dictionary<ItemData, InventoryItem>();
+
+        // Take all UI_ItemSlot and filling the itemSlot array
+        itemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
+    }
+
+    private void UpdateSlotUI()
+    {
+        // foreach items, create a ui slot with stack size
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            itemSlot[i].UpdateSlot(inventoryItems[i]);
+        }
     }
 
     public void AddItem(ItemData _item)
