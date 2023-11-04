@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
 
     private void UpdateSlotUI()
     {
-        // foreach items, create a ui slot with stack size
+        // foreach items, create a ui slot with stack size. Called on ading and removing items
         for (int i = 0; i < inventoryItems.Count; i++)
         {
             itemSlot[i].UpdateSlot(inventoryItems[i]);
@@ -59,6 +59,8 @@ public class Inventory : MonoBehaviour
             inventoryItems.Add(newItem);
             inventoryDictionary.Add(_item, newItem);
         }
+
+        UpdateSlotUI();
     }
 
     public void RemoveItem(ItemData _item)
@@ -76,6 +78,8 @@ public class Inventory : MonoBehaviour
                 value.RemoveStack();
             
         }
+
+        UpdateSlotUI();
 
     }
 

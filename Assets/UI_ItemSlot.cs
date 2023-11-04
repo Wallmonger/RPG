@@ -13,6 +13,9 @@ public class UI_ItemSlot : MonoBehaviour
     {
         item = _newItem;
 
+        // If item is created, remove transparency
+        itemImage.color = Color.white;
+
         if (item != null)
         {
             // Setting image in itemSlot
