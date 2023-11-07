@@ -54,11 +54,8 @@ public class Crystal_Skill_Controller : MonoBehaviour
         if (canMoveToEnemy)
         {
             //TODO FIX CRYSTAL NOT CHOOSING DIRECTION IF THERE'S NO ENEMY AT SIGHT 
-            if (!closestTarget)
-            {
-                FinishCrystal();
+            if (closestTarget == null)
                 return;
-            }
 
             transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
 

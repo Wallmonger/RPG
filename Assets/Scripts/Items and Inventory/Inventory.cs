@@ -7,17 +7,21 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
-    public List<InventoryItem> inventoryItems;
+    public List<InventoryItem> inventory;
+    public Dictionary<ItemData, InventoryItem> inventoryDictionary; // Like a list but with Key/Value pair 
 
-    // Like a list but with Key/Value pair 
-    public Dictionary<ItemData, InventoryItem> inventoryDictionary;
+    public List<InventoryItem> stash;
+    public Dictionary <ItemData, InventoryItem> stashDictionary;
+
 
 
     [Header("Inventory UI")]
 
     [SerializeField] private Transform inventorySlotParent;
+    [SerializeField] private Transform stashSlotParent;
 
-    private UI_ItemSlot[] itemSlot;
+    private UI_ItemSlot[] inventoryItemSlot;
+    private UI_ItemSlot[] stashItemSlot;
 
     // Prevent duplicate between scenes
     private void Awake()
@@ -30,23 +34,56 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        inventoryItems = new List<InventoryItem>();
+        inventory = new List<InventoryItem>();
         inventoryDictionary = new Dictionary<ItemData, InventoryItem>();
 
+        stash = new List<InventoryItem>();
+        stashDictionary = new Dictionary<ItemData, InventoryItem>();
+
         // Take all UI_ItemSlot and filling the itemSlot array
-        itemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
+        inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
+        stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
     }
 
     private void UpdateSlotUI()
     {
         // foreach items, create a ui slot with stack size. Called on ading and removing items
-        for (int i = 0; i < inventoryItems.Count; i++)
+        for (int i = 0; i < inventory.Count; i++)
         {
-            itemSlot[i].UpdateSlot(inventoryItems[i]);
+            inventoryItemSlot[i].UpdateSlot(inventory[i]);
+        }
+
+        for (int i = 0; i < stash.Count; i++)
+        {
+            stashItemSlot[i].UpdateSlot(stash[i]);  
         }
     }
 
     public void AddItem(ItemData _item)
+    {
+        if (_item.itemType == ItemType.Equipment)
+            AddToInventory(_item);
+        else if (_item.itemType == ItemType.Material)
+            AddToStash(_item);
+
+        UpdateSlotUI();
+    }
+
+    private void AddToStash(ItemData _item)
+    {
+        if (stashDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            value.AddStack();
+        }
+        else
+        {
+            InventoryItem newItem = new InventoryItem(_item);
+            stash.Add(newItem);
+            stashDictionary.Add(_item, newItem);
+        }
+    }
+
+    private void AddToInventory(ItemData _item)
     {
         // If key already exist in dictionnary, add one more else, add it to inventoryItems list and dictionnary (ItemData, InventoryItem)
         if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
@@ -56,11 +93,9 @@ public class Inventory : MonoBehaviour
         else
         {
             InventoryItem newItem = new InventoryItem(_item);
-            inventoryItems.Add(newItem);
+            inventory.Add(newItem);
             inventoryDictionary.Add(_item, newItem);
         }
-
-        UpdateSlotUI();
     }
 
     public void RemoveItem(ItemData _item)
@@ -70,7 +105,7 @@ public class Inventory : MonoBehaviour
             // Only one stack of item left or less
             if (value.stackSize <= 1)
             {
-                inventoryItems.Remove(value);
+                inventory.Remove(value);
                 inventoryDictionary.Remove(_item);   // ItemData is the key, so it will delete InventoryItem as well
             }
             // More than one item left, remove 1
@@ -79,21 +114,20 @@ public class Inventory : MonoBehaviour
             
         }
 
+        if (stashDictionary.TryGetValue(_item, out InventoryItem stashValue)) {
+            if (stashValue.stackSize <= 1)
+            {
+                inventory.Remove(stashValue);
+                stashDictionary.Remove(_item);
+            }
+            else
+            {
+                stashValue.RemoveStack();
+            }
+        }
+
         UpdateSlotUI();
 
     }
 
-
-    #region TEST ITEM REMOVAL
-    /*private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            ItemData newItem = inventoryItems[inventoryItems.Count - 1].data;
-            RemoveItem(newItem);
-            Debug.Log("Item ejected");
-        }
-    }*/
-
-    #endregion
 }
