@@ -7,6 +7,9 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
+    public List<InventoryItem> equipment;
+    public Dictionary<ItemData, InventoryItem> equipmentDictionary;
+
     public List<InventoryItem> inventory;
     public Dictionary<ItemData, InventoryItem> inventoryDictionary; // Like a list but with Key/Value pair 
 
@@ -40,9 +43,20 @@ public class Inventory : MonoBehaviour
         stash = new List<InventoryItem>();
         stashDictionary = new Dictionary<ItemData, InventoryItem>();
 
+        equipment = new List<InventoryItem>();
+        equipmentDictionary = new Dictionary<ItemData, InventoryItem>();
+
         // Take all UI_ItemSlot and filling the itemSlot array
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
+    }
+
+    public void EquipItem(ItemData _item)
+    {
+        InventoryItem newItem = new InventoryItem(_item);
+
+        equipment.Add(newItem);
+        equipmentDictionary.Add(_item, newItem);
     }
 
     private void UpdateSlotUI()

@@ -1,8 +1,10 @@
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class UI_ItemSlot : MonoBehaviour
+// Interface must be implemented
+public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
@@ -31,6 +33,17 @@ public class UI_ItemSlot : MonoBehaviour
             {
                 itemText.text = "";
             }
+        }
+    }
+
+    // Handle click events on ItemSlot objects
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        //TODO Prevent click on empty inventory slot 
+        if (item.data.itemType != ItemType.Material)
+        {
+            Debug.Log($"Equiped new item {item.data.itemName}");
+            Inventory.instance.EquipItem(item.data);
         }
     }
 }
