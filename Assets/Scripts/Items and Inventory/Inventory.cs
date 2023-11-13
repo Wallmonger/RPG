@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
 
     public List<InventoryItem> equipment;
-    public Dictionary<ItemData, InventoryItem> equipmentDictionary;
+    public Dictionary<ItemData_Equipment, InventoryItem> equipmentDictionary;
 
     public List<InventoryItem> inventory;
     public Dictionary<ItemData, InventoryItem> inventoryDictionary; // Like a list but with Key/Value pair 
@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour
         stashDictionary = new Dictionary<ItemData, InventoryItem>();
 
         equipment = new List<InventoryItem>();
-        equipmentDictionary = new Dictionary<ItemData, InventoryItem>();
+        equipmentDictionary = new Dictionary<ItemData_Equipment, InventoryItem>();
 
         // Take all UI_ItemSlot and filling the itemSlot array
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
@@ -53,10 +53,34 @@ public class Inventory : MonoBehaviour
 
     public void EquipItem(ItemData _item)
     {
-        InventoryItem newItem = new InventoryItem(_item);
+        // Convert ItemData type into ItemData_Equipment for registering in dictionnary
+        ItemData_Equipment newEquipment = _item as ItemData_Equipment;
+        InventoryItem newItem = new InventoryItem(newEquipment);
+
+        ItemData_Equipment itemToRemove = null;
+
+        // Checks if an item of the same equipment type is present in the equipment dictionnary and removes it if found. Allows the new item to be added to the list and dictionnary
+        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
+        {
+            if (item.Key.equipmentType == newEquipment.equipmentType)
+                itemToRemove = item.Key;
+        }
+
+        if (itemToRemove != null)
+            UnequipItem(itemToRemove);
 
         equipment.Add(newItem);
-        equipmentDictionary.Add(_item, newItem);
+        equipmentDictionary.Add(newEquipment, newItem);
+    }
+
+    private void UnequipItem(ItemData_Equipment itemToRemove)
+    {
+        // If equipmentDictionnary contains a value associated with the key itemToRemove, getting value (InventoryItem object)
+        if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
+        {
+            equipment.Remove(value);   // Removing from equipment list the inventoryItem
+            equipmentDictionary.Remove(itemToRemove);   // Removing from the dictionnary by passing the key
+        }
     }
 
     private void UpdateSlotUI()
