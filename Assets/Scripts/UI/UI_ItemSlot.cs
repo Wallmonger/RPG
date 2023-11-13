@@ -36,10 +36,21 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
         }
     }
 
+    public void CleanUpSlot()
+    {
+        item = null;
+        itemImage.sprite = null;
+        itemImage.color = Color.clear;
+
+        itemText.text = "";
+    }
+
     // Handle click events on ItemSlot objects
     public void OnPointerDown(PointerEventData eventData)
     {
-        //TODO Prevent click on empty inventory slot 
+        if (item == null)
+            return;
+
         if (item.data.itemType != ItemType.Material)
         {
             Debug.Log($"Equiped new item {item.data.itemName}");

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Inventory : MonoBehaviour
 {
@@ -22,9 +23,11 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private Transform inventorySlotParent;
     [SerializeField] private Transform stashSlotParent;
+    [SerializeField] private Transform equipmentSlotParent;
 
     private UI_ItemSlot[] inventoryItemSlot;
     private UI_ItemSlot[] stashItemSlot;
+    private UI_EquipmentSlot[] equipmentSlot;
 
     // Prevent duplicate between scenes
     private void Awake()
@@ -49,6 +52,8 @@ public class Inventory : MonoBehaviour
         // Take all UI_ItemSlot and filling the itemSlot array
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
+
+        equipmentSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
     }
 
     public void EquipItem(ItemData _item)
@@ -57,34 +62,62 @@ public class Inventory : MonoBehaviour
         ItemData_Equipment newEquipment = _item as ItemData_Equipment;
         InventoryItem newItem = new InventoryItem(newEquipment);
 
-        ItemData_Equipment itemToRemove = null;
+        ItemData_Equipment oldEquipment = null;
 
         // Checks if an item of the same equipment type is present in the equipment dictionnary and removes it if found. Allows the new item to be added to the list and dictionnary
         foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
         {
             if (item.Key.equipmentType == newEquipment.equipmentType)
-                itemToRemove = item.Key;
+                oldEquipment = item.Key;
         }
 
-        if (itemToRemove != null)
-            UnequipItem(itemToRemove);
+        if (oldEquipment != null)
+        {
+            UnequipItem(oldEquipment);
+            AddItem(oldEquipment);  // Insert back to inventory, the old equipment
+        }
 
         equipment.Add(newItem);
         equipmentDictionary.Add(newEquipment, newItem);
+        RemoveItem(_item);  // Remove from ui
+
+        UpdateSlotUI(); // Refresh ui
     }
 
-    private void UnequipItem(ItemData_Equipment itemToRemove)
+    private void UnequipItem(ItemData_Equipment oldEquipment)
     {
-        // If equipmentDictionnary contains a value associated with the key itemToRemove, getting value (InventoryItem object)
-        if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
+        // If equipmentDictionnary contains a value associated with the key oldEquipment, getting value (InventoryItem object)
+        if (equipmentDictionary.TryGetValue(oldEquipment, out InventoryItem value))
         {
             equipment.Remove(value);   // Removing from equipment list the inventoryItem
-            equipmentDictionary.Remove(itemToRemove);   // Removing from the dictionnary by passing the key
+            equipmentDictionary.Remove(oldEquipment);   // Removing from the dictionnary by passing the key
         }
     }
 
     private void UpdateSlotUI()
     {
+        // Updating equipmentUI
+        for (int i = 0; i < equipmentSlot.Length; i++ )
+        {
+            foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
+            {
+                if (item.Key.equipmentType == equipmentSlot[i].slotType)
+                    equipmentSlot[i].UpdateSlot(item.Value);
+            }
+        }
+
+        // Removing all slots and stash before update, preventing glitch
+        for (int i = 0; i < inventoryItemSlot.Length; i++)
+        {
+            inventoryItemSlot[i].CleanUpSlot();
+        }
+
+        for (int i = 0; i < stashItemSlot.Length; i++)
+        {
+            stashItemSlot[i].CleanUpSlot();
+        }
+
+
         // foreach items, create a ui slot with stack size. Called on ading and removing items
         for (int i = 0; i < inventory.Count; i++)
         {
