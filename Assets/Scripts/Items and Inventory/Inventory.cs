@@ -86,7 +86,7 @@ public class Inventory : MonoBehaviour
         UpdateSlotUI(); // Refresh ui
     }
 
-    private void UnequipItem(ItemData_Equipment itemToRemove)
+    public void UnequipItem(ItemData_Equipment itemToRemove)
     {
         // If equipmentDictionnary contains a value associated with the key oldEquipment, getting value (InventoryItem object)
         if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
