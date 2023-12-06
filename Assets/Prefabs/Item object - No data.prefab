@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8453030452870141439}
   - component: {fileID: 8453030452870141424}
   - component: {fileID: 8453030452870141436}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Item object - No data
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8453030452870141436}
   itemData: {fileID: 0}
-  velocity: {x: 0, y: 0}
 --- !u!61 &8453030452870141424
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,12 +143,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &8453030453088859005
 GameObject:
   m_ObjectHideFlags: 0

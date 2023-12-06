@@ -6,10 +6,8 @@ public class ItemObject : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private ItemData itemData;
-    [SerializeField] private Vector2 velocity;
 
-    // Called when the script is loaded or value change in the inspector
-    private void OnValidate()
+    private void SetupVisuals()
     {
         // In case itemData is not set
         if (itemData == null)
@@ -19,16 +17,13 @@ public class ItemObject : MonoBehaviour
         gameObject.name = $"Item object - {itemData.itemName}";
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-            rb.velocity = velocity;
-    }
 
     public void SetupItem(ItemData _itemData, Vector2 _velocity)
     {
         itemData = _itemData;
         rb.velocity = _velocity;
+
+        SetupVisuals();
     }
 
     public void PickupItem()

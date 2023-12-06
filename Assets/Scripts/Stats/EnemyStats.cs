@@ -67,6 +67,7 @@ public class EnemyStats : CharacterStats
         base.Die();
         enemy.Die();
 
-        myDropSystem.DropItem();
+        // Select random objects to drop based on array
+        myDropSystem.GenerateDrop();
     }
 }
