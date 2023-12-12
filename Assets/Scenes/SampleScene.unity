@@ -10260,6 +10260,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1240a86028e153347a7c6f2ad49c1f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingItems:
+  - {fileID: 11400000, guid: cf6ee87731145c248b1f15ba86cb707b, type: 2}
+  - {fileID: 11400000, guid: cf6ee87731145c248b1f15ba86cb707b, type: 2}
+  - {fileID: 11400000, guid: acd303a672085e64e9226b34dc73eae1, type: 2}
+  - {fileID: 11400000, guid: 2c7f8183dd9d4ca4d9e38c016d5b607f, type: 2}
+  - {fileID: 11400000, guid: f615aa0fd41e1fe4eb9fac3c2fb9b33f, type: 2}
+  - {fileID: 11400000, guid: 9f471ba849473444cb18fa1d107ba95e, type: 2}
+  - {fileID: 11400000, guid: cf6ee87731145c248b1f15ba86cb707b, type: 2}
+  - {fileID: 11400000, guid: acd303a672085e64e9226b34dc73eae1, type: 2}
   equipment: []
   inventory: []
   stash: []
