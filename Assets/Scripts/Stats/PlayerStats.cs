@@ -23,5 +23,8 @@ public class PlayerStats : CharacterStats
         base.Die();
 
         player.Die();
+
+        // "?." To verify if not null
+        GetComponent<PlayerItemDrop>()?.GenerateDrop();
     }
 }
