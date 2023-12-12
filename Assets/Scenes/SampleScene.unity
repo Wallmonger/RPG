@@ -8245,7 +8245,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f615aa0fd41e1fe4eb9fac3c2fb9b33f, type: 2}
   - {fileID: 11400000, guid: 9f471ba849473444cb18fa1d107ba95e, type: 2}
   dropPrefab: {fileID: 8453030452870141425, guid: 440921cd2ef29b645aee97be94bbe1f9, type: 3}
-  item: {fileID: 0}
 --- !u!224 &865789858 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8978202004842175745, guid: 3996b6453671cc74fb825cff1edb9511, type: 3}
@@ -9311,7 +9310,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f615aa0fd41e1fe4eb9fac3c2fb9b33f, type: 2}
   - {fileID: 11400000, guid: 9f471ba849473444cb18fa1d107ba95e, type: 2}
   dropPrefab: {fileID: 8453030452870141425, guid: 440921cd2ef29b645aee97be94bbe1f9, type: 3}
-  item: {fileID: 0}
 --- !u!70 &1081861704
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -9955,6 +9953,7 @@ GameObject:
   - component: {fileID: 1215893097}
   - component: {fileID: 1215893099}
   - component: {fileID: 1215893100}
+  - component: {fileID: 1215893101}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -10111,7 +10110,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 100
+    baseValue: 1
     modifiers: 
   armor:
     baseValue: 0
@@ -10137,6 +10136,23 @@ MonoBehaviour:
   ailmentsDuration: 4
   shockStrikePrefab: {fileID: 6418460244306834377, guid: 915b75ea7fa10c74ea676c3d03c8f7a8, type: 3}
   currentHealth: 0
+--- !u!114 &1215893101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215893094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f8d02c89f241047b42d652c71833ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleItemDrop: 0
+  possibleDrop: []
+  dropPrefab: {fileID: 8453030452870141425, guid: 440921cd2ef29b645aee97be94bbe1f9, type: 3}
+  chanceToLooseItems: 20
+  chanceToLooseMaterials: 75
 --- !u!1 &1224236147
 GameObject:
   m_ObjectHideFlags: 0

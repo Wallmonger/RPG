@@ -258,4 +258,6 @@ public class Inventory : MonoBehaviour
     }
 
     public List<InventoryItem> GetEquipmentList() => equipment;
+
+    public List<InventoryItem> GetStashList() => stash;
 }
