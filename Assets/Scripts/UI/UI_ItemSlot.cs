@@ -51,6 +51,14 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
         if (item == null)
             return;
 
+        // If holding ctrl, delete item
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            Inventory.instance.RemoveItem(item.data);
+            return;
+        }
+
+        // On click, equip
         if (item.data.itemType != ItemType.Material)
         {
             Debug.Log($"Equiped new item {item.data.itemName}");
