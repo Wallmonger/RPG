@@ -22,16 +22,19 @@ public class PlayerAnimationTriggers : MonoBehaviour
         {
             if (hit.GetComponent<Enemy>() != null)
             {
-                EnemyStats target = hit.GetComponent<EnemyStats>();
-                player.stats.DoDamage(target);
+                EnemyStats _target = hit.GetComponent<EnemyStats>();
+                player.stats.DoDamage(_target);
 
                 // Get effect of weapon
-                //TODO: Fix bug that triggers an error when sword is not equipped
-                Inventory.instance.GetEquipment(EquipmentType.Weapon).ExecuteItemEffect();
+                ItemData_Equipment weaponData = Inventory.instance.GetEquipment(EquipmentType.Weapon);
+
+                if (weaponData != null)
+                    weaponData.Effect(_target.transform);
                 
             }
         }
     }
+
 
     private void throwSword()
     {
