@@ -25,7 +25,8 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 EnemyStats target = hit.GetComponent<EnemyStats>();
                 player.stats.DoDamage(target);
 
-                // Inventory get weapon call item effect
+                // Get effect of weapon
+                //TODO: Fix bug that triggers an error when sword is not equipped
                 Inventory.instance.GetEquipment(EquipmentType.Weapon).ExecuteItemEffect();
                 
             }
