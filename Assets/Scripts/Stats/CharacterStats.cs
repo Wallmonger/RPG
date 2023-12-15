@@ -169,7 +169,7 @@ public class CharacterStats : MonoBehaviour
     {
         // Checking conditions, shock can be cumulated
         bool canApplyIgnite = !isIgnited && !isChilled && !isShocked;
-        bool canApplyChill = !isIgnited && !isChilled && isShocked;
+        bool canApplyChill = !isIgnited && !isChilled && !isShocked;
         bool canApplyShock = !isIgnited && !isChilled;
 
         if (_ignite && canApplyIgnite)
@@ -203,6 +203,8 @@ public class CharacterStats : MonoBehaviour
                 HitNearestTargetWithShockStrike();
             }
         }
+
+
 /*
         isChilled = _chill;
         isShocked = _shock;*/
