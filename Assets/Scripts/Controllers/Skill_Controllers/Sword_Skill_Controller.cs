@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Sword_Skill_Controller : MonoBehaviour
 {
@@ -104,7 +102,7 @@ public class Sword_Skill_Controller : MonoBehaviour
         transform.parent = null;
         isReturning = true;
 
-        
+
     }
 
     private void Update()
@@ -143,7 +141,7 @@ public class Sword_Skill_Controller : MonoBehaviour
 
                 // move the sword forward on launch
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + spinDirection, transform.position.y), 1.5f * Time.deltaTime);
-                
+
                 // if timer goes to 0, return the sword
                 if (spinTimer < 0)
                 {
@@ -230,6 +228,11 @@ public class Sword_Skill_Controller : MonoBehaviour
     {
         player.stats.DoDamage(enemy.GetComponent<CharacterStats>());
         enemy.StartCoroutine("FreezeTimeFor", freezeTimeDuration);
+
+        ItemData_Equipment equipedAmulet = Inventory.instance.GetEquipment(EquipmentType.Amulet);
+
+        if (equipedAmulet != null)
+            equipedAmulet.Effect(enemy.transform);
     }
 
     private void SetupTargetForBounce(Collider2D collision)
