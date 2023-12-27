@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bab2875304db3e45b1453606130ed63, type: 3}
-  m_Name: Heal on Hit
+  m_Name: Flask heal
   m_EditorClassIdentifier: 
-  healPercent: 0.05
+  healPercent: 0.3
