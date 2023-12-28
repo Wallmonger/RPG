@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System.Collections;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
@@ -84,6 +85,21 @@ public class CharacterStats : MonoBehaviour
             ApplyIgniteDamage();
     }
 
+    public virtual void IncreaseStatBy(int _modifier, float _duration, Stat _statToModify)
+    {
+        // Temp buff effect
+        StartCoroutine(StatModCoroutine(_modifier, _duration, _statToModify));        
+    }
+
+    private IEnumerator StatModCoroutine(int _modifier, float _duration, Stat _statToModify)
+    {
+        _statToModify.AddModifier(_modifier);
+
+        yield return new WaitForSeconds(_duration);
+
+        _statToModify.RemoveModifier(_modifier);
+    }
+
 
     public virtual void DoDamage(CharacterStats _targetStats)
     {
@@ -101,9 +117,43 @@ public class CharacterStats : MonoBehaviour
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage);
-        /*DoMagicalDamage(_targetStats);*/
 
-        //TODO Create condition if weapon has elemental damage, DoMagicalDamage()
+        //! Magical hit on weapons
+        DoMagicalDamage(_targetStats);
+    }
+    public virtual void TakeDamage(int _damage)
+    {
+        DecreaseHealthBy(_damage);
+
+        GetComponent<Entity>().DamageImpact();
+        fx.StartCoroutine("FlashFX");
+
+        // Trigger death anim for entities
+        if (currentHealth < 0 && !isDead)
+            Die();
+        
+    }
+    protected virtual void DecreaseHealthBy(int _damage)
+    {
+        currentHealth -= _damage;
+
+        if (onHealthChanged != null)
+            onHealthChanged();
+    }
+    public virtual void IncreaseHealthBy(int _amount)
+    {
+        currentHealth += _amount;
+
+        if (currentHealth > GetMaxHealthValue())
+            currentHealth = GetMaxHealthValue();
+
+        if (onHealthChanged != null)
+            onHealthChanged();
+    }
+    protected virtual void Die()
+    {
+        // Prevent death loop
+        isDead = true;
     }
 
     #region Magical damage and Ailments
@@ -274,41 +324,6 @@ public class CharacterStats : MonoBehaviour
 
     #endregion
 
-    public virtual void TakeDamage(int _damage)
-    {
-        DecreaseHealthBy(_damage);
-
-        GetComponent<Entity>().DamageImpact();
-        fx.StartCoroutine("FlashFX");
-
-        // Trigger death anim for entities
-        if (currentHealth < 0 && !isDead)
-            Die();
-        
-    }
-    protected virtual void DecreaseHealthBy(int _damage)
-    {
-        currentHealth -= _damage;
-
-        if (onHealthChanged != null)
-            onHealthChanged();
-    }
-
-    public virtual void IncreaseHealthBy(int _amount)
-    {
-        currentHealth += _amount;
-
-        if (currentHealth > GetMaxHealthValue())
-            currentHealth = GetMaxHealthValue();
-
-        if (onHealthChanged != null)
-            onHealthChanged();
-    }
-    protected virtual void Die()
-    {
-        // Prevent death loop
-        isDead = true;
-    }
 
     #region Stat calculations
 
