@@ -27,4 +27,15 @@ public class PlayerStats : CharacterStats
         // "?." To verify if not null
         GetComponent<PlayerItemDrop>()?.GenerateDrop();
     }
+
+    protected override void DecreaseHealthBy(int _damage)
+    {
+        // Override to trigger effects based on equipped armor
+        base.DecreaseHealthBy(_damage);
+
+        ItemData_Equipment currentArmor = Inventory.instance.GetEquipment(EquipmentType.Armor);
+
+        if (currentArmor)
+            currentArmor.Effect(player.transform);
+    }
 }
