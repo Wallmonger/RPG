@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9c219e936a4117a4b9658c1e40f8bc84
+guid: f037c20cc54e1a14292ae392ab876812
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 587, w: 418}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,47 +113,59 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UIartdeco_PIPO_pack2_white_0
+      name: artdecoUI_PIPO_wb_0
       rect:
         serializedVersion: 2
-        x: 239
-        y: 518
-        width: 66
-        height: 64
+        x: 992
+        y: 582
+        width: 56
+        height: 52
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 9, y: 9, z: 9, w: 9}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 60a0ddaf13d9cfb4aa2cfb13579d28c7
-      internalID: 1968567152
+      spriteID: 7b2886d83dab15f45a39fa24172a8c29
+      internalID: -1762947064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UIartdeco_PIPO_pack2_white_1
+      name: artdecoUI_PIPO_wb_1
       rect:
         serializedVersion: 2
-        x: 283
-        y: 393
-        width: 182
-        height: 19
+        x: 311
+        y: 673
+        width: 312
+        height: 195
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 35, y: 0, z: 35, w: 0}
+      border: {x: 40, y: 40, z: 39, w: 40}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 418b64acfc3bbc5429e897b8fe67c960
-      internalID: 2145175254
+      spriteID: 6fe10902b85ce4b4f912d2c28e700d14
+      internalID: -1146079874
       vertices: []
       indices: 
       edges: []
@@ -162,15 +174,15 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UIartdeco_PIPO_pack2_white_1: 2145175254
-      UIartdeco_PIPO_pack2_white_0: 1968567152
+      artdecoUI_PIPO_wb_0: -1762947064
+      artdecoUI_PIPO_wb_1: -1146079874
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
