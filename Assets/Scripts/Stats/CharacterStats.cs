@@ -1,6 +1,26 @@
 using JetBrains.Annotations;
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+
+
+public enum StatType
+{
+    strength,
+    agility,
+    intelligence,
+    vitality,
+    damage,
+    critChance,
+    critPower,
+    health,
+    armor,
+    evasion,
+    magicRes,
+    fireDamage,
+    iceDamage,
+    lightningDamage
+}
 
 public class CharacterStats : MonoBehaviour
 {
@@ -384,4 +404,26 @@ public class CharacterStats : MonoBehaviour
     }
 
     #endregion
+
+    public Stat GetStat(StatType _statType)
+    {
+        return _statType switch
+        {
+            StatType.strength => strength,
+            StatType.agility => agility,
+            StatType.intelligence => intelligence,
+            StatType.vitality => vitality,
+            StatType.damage => damage,
+            StatType.critChance => critChance,
+            StatType.critPower => critPower,
+            StatType.health => maxHealth,
+            StatType.armor => armor,
+            StatType.evasion => evasion,
+            StatType.magicRes => magicResistance,
+            StatType.fireDamage => fireDamage,
+            StatType.iceDamage => iceDamage,
+            StatType.lightningDamage => lightningDamage,
+            _ => null,
+        };
+    }
 }
