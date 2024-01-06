@@ -8,8 +8,6 @@ public class Player : Entity
 
 
     #region Player info
-    bool isCanvaActive = true;
-    [SerializeField] public Canvas canvas;
 
     [Header("Attack details")]
     // will serve to set movement speed for each attack
@@ -118,20 +116,6 @@ public class Player : Entity
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Inventory.instance.UseFlask();
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            if (isCanvaActive)
-            {
-                canvas.enabled = true;
-                isCanvaActive = false;
-            } else
-            {
-                canvas.enabled = false;
-                isCanvaActive = true;
-            }
-
-        }
     }
 
     public override void SlowEntityBy(float _slowPercentage, float _duration)

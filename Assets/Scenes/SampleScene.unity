@@ -21967,7 +21967,6 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  canvas: {fileID: 1779944750}
   attackMovement:
   - {x: 3, y: 1.5}
   - {x: 1, y: 2.5}
@@ -36048,6 +36047,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterUI: {fileID: 868267956}
+  skillTreeUI: {fileID: 561722490}
+  craftUI: {fileID: 1232395800}
+  optionsUI: {fileID: 6939727}
   itemToolTip: {fileID: 11235488}
   statToolTip: {fileID: 1385259586}
 --- !u!1 &1793384288
