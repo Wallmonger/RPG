@@ -1453,6 +1453,7 @@ MonoBehaviour:
   statType: 4
   statValueText: {fileID: 80546000}
   statNameText: {fileID: 1099227823}
+  statDescription: The physical damage inflicted when striking an opponent
 --- !u!222 &80546002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2931,6 +2932,7 @@ MonoBehaviour:
   statType: 5
   statValueText: {fileID: 221841087}
   statNameText: {fileID: 1096956865}
+  statDescription: Chance to do critical damage
 --- !u!222 &221841089
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3287,6 +3289,7 @@ MonoBehaviour:
   statType: 2
   statValueText: {fileID: 262545438}
   statNameText: {fileID: 1889862470}
+  statDescription: Increases magical damage and resistance
 --- !u!222 &262545440
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3688,6 +3691,7 @@ MonoBehaviour:
   statType: 11
   statValueText: {fileID: 300649710}
   statNameText: {fileID: 1308035502}
+  statDescription: The fire damage inflicted when striking an opponent
 --- !u!222 &300649712
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15394,6 +15398,7 @@ MonoBehaviour:
   statType: 1
   statValueText: {fileID: 615292812}
   statNameText: {fileID: 592856238}
+  statDescription: Increases evasion and critical chance
 --- !u!222 &615292814
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16911,6 +16916,7 @@ MonoBehaviour:
   statType: 7
   statValueText: {fileID: 757883968}
   statNameText: {fileID: 5723394}
+  statDescription: Maximum amount of health based on Vitality
 --- !u!222 &757883970
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17239,6 +17245,141 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830696953}
   m_CullTransparentMesh: 1
+--- !u!1 &842497023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 842497026}
+  - component: {fileID: 842497025}
+  - component: {fileID: 842497024}
+  m_Layer: 5
+  m_Name: StatDescription
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &842497024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842497023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Increases damage and crit.power
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
+  m_sharedMaterial: {fileID: -8065883861848785263, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 26
+  m_fontSizeBase: 26
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -3.0460443, y: -3.722929, z: 13.726391, w: 14.417181}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &842497025
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842497023}
+  m_CullTransparentMesh: 1
+--- !u!224 &842497026
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842497023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1385259587}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 7.7648926, y: -8.048294}
+  m_SizeDelta: {x: -4.4703, y: -3.9034}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &864920931
 GameObject:
   m_ObjectHideFlags: 0
@@ -17535,6 +17676,7 @@ RectTransform:
   - {fileID: 1189776824}
   - {fileID: 1846420435}
   - {fileID: 11235487}
+  - {fileID: 1385259587}
   m_Father: {fileID: 1779944751}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19704,6 +19846,7 @@ MonoBehaviour:
   statType: 10
   statValueText: {fileID: 1041271901}
   statNameText: {fileID: 198622653}
+  statDescription: Reduces magical damage taken from enemies
 --- !u!222 &1041271903
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20982,6 +21125,7 @@ MonoBehaviour:
   statType: 0
   statValueText: {fileID: 1121152559}
   statNameText: {fileID: 2085295994}
+  statDescription: Increases damage and critical power
 --- !u!222 &1121152561
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22557,6 +22701,7 @@ MonoBehaviour:
   statType: 8
   statValueText: {fileID: 1252851541}
   statNameText: {fileID: 559805628}
+  statDescription: Reduces physical damage taken from enemies
 --- !u!222 &1252851543
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23561,6 +23706,7 @@ MonoBehaviour:
   statType: 9
   statValueText: {fileID: 1315016788}
   statNameText: {fileID: 1948887258}
+  statDescription: Increases chance to avoid attacks
 --- !u!222 &1315016790
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24681,6 +24827,7 @@ MonoBehaviour:
   statType: 3
   statValueText: {fileID: 1374343920}
   statNameText: {fileID: 911430143}
+  statDescription: Increases health
 --- !u!222 &1374343922
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24910,6 +25057,7 @@ MonoBehaviour:
   statType: 12
   statValueText: {fileID: 1377946660}
   statNameText: {fileID: 1032822824}
+  statDescription: The ice damage inflicted when striking an opponent
 --- !u!222 &1377946662
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24923,6 +25071,97 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8978202004842175745, guid: 3996b6453671cc74fb825cff1edb9511, type: 3}
   m_PrefabInstance: {fileID: 336737180}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1385259585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385259587}
+  - component: {fileID: 1385259589}
+  - component: {fileID: 1385259588}
+  - component: {fileID: 1385259586}
+  m_Layer: 5
+  m_Name: Stat_ToolTip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1385259586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385259585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc8a08842e5892e40bd934b2cd9167c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: {fileID: 842497024}
+--- !u!224 &1385259587
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385259585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 842497026}
+  m_Father: {fileID: 868267959}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 452, y: -554}
+  m_SizeDelta: {x: 818.5459, y: 160}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1385259588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385259585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.972549}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1227261984, guid: f037c20cc54e1a14292ae392ab876812, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1385259589
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385259585}
+  m_CullTransparentMesh: 1
 --- !u!1 &1395728895
 GameObject:
   m_ObjectHideFlags: 0
@@ -35308,6 +35547,7 @@ MonoBehaviour:
   statType: 13
   statValueText: {fileID: 1699828257}
   statNameText: {fileID: 584954707}
+  statDescription: The lightning damage inflicted when striking an opponent
 --- !u!222 &1699828259
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35809,6 +36049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterUI: {fileID: 868267956}
   itemToolTip: {fileID: 11235488}
+  statToolTip: {fileID: 1385259586}
 --- !u!1 &1793384288
 GameObject:
   m_ObjectHideFlags: 0
@@ -37873,6 +38114,7 @@ MonoBehaviour:
   statType: 6
   statValueText: {fileID: 1921503774}
   statNameText: {fileID: 1874824694}
+  statDescription: Increases power of critical attacks
 --- !u!222 &1921503776
 CanvasRenderer:
   m_ObjectHideFlags: 0
